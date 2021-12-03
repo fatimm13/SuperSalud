@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">Super Salud</string>
+    <string name="pastillero">Pastillero</string>
+    <string name="title_activity_pastillero">Pastillero</string>
+    <string name="desc_pastillero">Listado de medicacion</string>
+
+    <string name="name_medication">Nombre medicación: </string>
+    <string name="time_medication">Tiempo entre dosis:</string>
+    <string name="num_pills">Cantidad de pastillas recetadas:</string>
+    <string name="bought_pills">Cantidad de pastillas compradas:</string>
+
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>
