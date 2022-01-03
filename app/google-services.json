@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "224711243428",
+    "project_id": "android22dyf",
+    "storage_bucket": "android22dyf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:224711243428:android:37755c5cd15b418afbd831",
+        "android_client_info": {
+          "package_name": "com.app.supersalud"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "224711243428-rmon287lccdv5luie9pafm08sl4su4tf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQADzuOuLbH7JBDw3RC6Vdny_mfY8a3B8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "224711243428-rmon287lccdv5luie9pafm08sl4su4tf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
