@@ -7,40 +7,95 @@
     tools:context=".AddPastilla">
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/tx_nombreMedicacion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/bought_pills"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/textView7"
-        tools:layout_editor_absoluteY="477dp" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="60dp"
         android:text="@string/name_medication"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/tx_tiempoDosis"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/num_pills"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/textView4"
-        tools:layout_editor_absoluteY="352dp" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
         android:text="@string/time_medication"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/textView6"
-        tools:layout_editor_absoluteY="210dp" />
+        app:layout_constraintStart_toStartOf="@+id/tx_nombreMedicacion"
+        app:layout_constraintTop_toBottomOf="@+id/in_nombreMed" />
+
+    <TextView
+        android:id="@+id/tx_cantidadPastillas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="@string/num_pills"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/tx_tiempoDosis"
+        app:layout_constraintTop_toBottomOf="@+id/in_timeDoses" />
+
+    <TextView
+        android:id="@+id/tx_cantidadPastillasComp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="@string/bought_pills"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/tx_cantidadPastillas"
+        app:layout_constraintTop_toBottomOf="@+id/in_quantPillsAsked" />
+
+    <Button
+        android:id="@+id/button_newPill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="53dp"
+        android:text="@string/add_pill"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/in_quantPillsBought"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/in_nombreMed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/tx_nombreMedicacion"
+        app:layout_constraintTop_toBottomOf="@+id/tx_nombreMedicacion" />
+
+    <EditText
+        android:id="@+id/in_timeDoses"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/tx_tiempoDosis"
+        app:layout_constraintTop_toBottomOf="@+id/tx_tiempoDosis" />
+
+    <EditText
+        android:id="@+id/in_quantPillsAsked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/tx_cantidadPastillas"
+        app:layout_constraintTop_toBottomOf="@+id/tx_cantidadPastillas" />
+
+    <EditText
+        android:id="@+id/in_quantPillsBought"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/tx_cantidadPastillasComp"
+        app:layout_constraintTop_toBottomOf="@+id/tx_cantidadPastillasComp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

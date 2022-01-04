@@ -13,6 +13,7 @@
     <string name="time_medication">Tiempo entre dosis:</string>
     <string name="num_pills">Cantidad de pastillas recetadas:</string>
     <string name="bought_pills">Cantidad de pastillas compradas:</string>
+    <string name="add_pill">Nueva pastilla</string>
 
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
