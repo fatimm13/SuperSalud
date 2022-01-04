@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Daniel/Estudios/Universidad/SistemasEmpotrados/Proyecto/SuperSalud/app/src/main/res/layout/activity_main.xml" value="0.2713541666666667" />
+        <entry key="..\:/Daniel/Estudios/Universidad/SistemasEmpotrados/Proyecto/SuperSalud/app/src/main/res/drawable/circle.xml" value="0.19814814814814816" />
+        <entry key="..\:/Daniel/Estudios/Universidad/SistemasEmpotrados/Proyecto/SuperSalud/app/src/main/res/drawable/circle_steps.xml" value="0.31203703703703706" />
+        <entry key="..\:/Daniel/Estudios/Universidad/SistemasEmpotrados/Proyecto/SuperSalud/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/FATIMA/AndroidStudioProjects/SuperSalud/app/src/main/res/layout/activity_add_pastilla.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/FATIMA/AndroidStudioProjects/SuperSalud/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/FATIMA/AndroidStudioProjects/SuperSalud/app/src/main/res/layout/activity_pastillero.xml" value="0.25416666666666665" />

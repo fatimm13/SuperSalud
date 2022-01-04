@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "224711243428-n87krc8idqrpegoektchjn1aqhjalcap.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.supersalud",
+            "certificate_hash": "18fa3ff49d320fb9e2eca94b8b54d84a3e7ee1e7"
+          }
+        },
+        {
           "client_id": "224711243428-rmon287lccdv5luie9pafm08sl4su4tf.apps.googleusercontent.com",
           "client_type": 3
         }
