@@ -147,6 +147,9 @@ public class MainActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+
+                            goHome(user);
+
                             //updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -161,6 +164,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateUI(FirebaseUser user) {
 
+    }
+
+    private void goHome(FirebaseUser user) {
+        Bundle b = new Bundle();
+        b.putString("email", user.getEmail());
+        Intent intent = new Intent(this, Home.class);
+        intent.putExtras(b);
+        startActivity(intent);
     }
 
 
