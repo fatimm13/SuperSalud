@@ -27,6 +27,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 public class MainActivity extends AppCompatActivity {
@@ -51,39 +52,47 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Guardado de datos
-        SharedPreferences.Editor prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE).edit();
+        //SharedPreferences.Editor prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE).edit();
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         // [END initialize_auth]
 
-        googleButton = (SignInButton) findViewById(R.id.sign_in_button);
 
-        Context context = this;
+        googleButton = (SignInButton) findViewById(R.id.sign_in_button);
 
         googleButton.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
                 tx.setText("Boton pulsado inicio");
+                ///signIn();
                 // Configure sign-in to request the user's ID, email address, and basic profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-                GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                        //.requestIdToken(getString(R.string.default_web_client_id))
-                        .requestEmail()
-                        .build();
+
                 // Build a GoogleSignInClient with the options specified by gso.
-                mGoogleSignInClient = GoogleSignIn.getClient(context, gso);
+
                 mGoogleSignInClient.signOut(); /////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAH
+
                 myActivityResultLauncher.launch(mGoogleSignInClient.getSignInIntent());
+
                 tx.setText("Boton pulsado terminado");
+
             }
         });
+
 
         myActivityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
                     @Override
                     public void onActivityResult(ActivityResult result) {
-                        
+
                         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
                         if (result.getResultCode() == Activity.RESULT_OK) {
                             // The Task returned from this call is always completed, no need to attach
@@ -112,40 +121,24 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-/**
-    public void pulsarInicioSesion(View v) {
 
-
-        // Configure sign-in to request the user's ID, email address, and basic profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                //.requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-        // Build a GoogleSignInClient with the options specified by gso.
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        ////mGoogleSignInClient.signOut(); /////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAH
-        myActivityResultLauncher.launch(mGoogleSignInClient.getSignInIntent());
-        tx.setText("Boton pulsado terminado");
-
-    }
-**/
 
     @Override
     protected void onStart() {
         super.onStart();
         // Check for existing Google Sign In account, if the user is already signed in
         // the GoogleSignInAccount will be non-null.
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        //GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         //updateUI(account);
     }
-
-
-
 
 
     // [START auth_with_google]
     private void firebaseAuthWithGoogle(String idToken) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
+        tx.setText("Patata");
+
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -153,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            //////////FirebaseUser user = mAuth.getCurrentUser();
+                            FirebaseUser user = mAuth.getCurrentUser();
                             //updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -162,8 +155,13 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
+
     }
     // [END auth_with_google]
+
+    private void updateUI(FirebaseUser user) {
+
+    }
 
 
 }

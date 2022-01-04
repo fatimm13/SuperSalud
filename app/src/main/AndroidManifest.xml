@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SuperSalud">
         <activity
-            android:name=".InicioSesion"
+            android:name=".Home"
             android:exported="false" />
         <activity
             android:name=".AddPastilla"

@@ -3,7 +3,6 @@ plugins {
 
 }
 //apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdk 31
@@ -49,3 +48,5 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
 
 }
+
+apply plugin: 'com.google.gms.google-services'
