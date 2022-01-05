@@ -2,6 +2,8 @@
     <string name="app_name">Super Salud</string>
     <string name="prefs_file">com.app.supersalud.PREFERENCEFILE_KEY</string>
 
+    <string name="log_out">Cerrar sesion</string>
+
     <string name="pastillero">Pastillero</string>
     <string name="title_activity_pastillero">Pastillero</string>
     <string name="desc_pastillero">Listado de medicacion</string>

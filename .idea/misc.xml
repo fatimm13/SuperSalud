@@ -9,7 +9,7 @@
         <entry key="..\:/Daniel/Estudios/Universidad/SistemasEmpotrados/Proyecto/SuperSalud/app/src/main/res/drawable/circle_water.xml" value="0.21875" />
         <entry key="..\:/Daniel/Estudios/Universidad/SistemasEmpotrados/Proyecto/SuperSalud/app/src/main/res/drawable/ic_launcher_background.xml" value="0.21875" />
         <entry key="..\:/Daniel/Estudios/Universidad/SistemasEmpotrados/Proyecto/SuperSalud/app/src/main/res/layout/activity_add_pastilla.xml" value="0.36666666666666664" />
-        <entry key="..\:/Daniel/Estudios/Universidad/SistemasEmpotrados/Proyecto/SuperSalud/app/src/main/res/layout/activity_home.xml" value="0.33" />
+        <entry key="..\:/Daniel/Estudios/Universidad/SistemasEmpotrados/Proyecto/SuperSalud/app/src/main/res/layout/activity_home.xml" value="0.27239583333333334" />
         <entry key="..\:/Daniel/Estudios/Universidad/SistemasEmpotrados/Proyecto/SuperSalud/app/src/main/res/layout/activity_inicio_sesion.xml" value="0.36666666666666664" />
         <entry key="..\:/Daniel/Estudios/Universidad/SistemasEmpotrados/Proyecto/SuperSalud/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Daniel/Estudios/Universidad/SistemasEmpotrados/Proyecto/SuperSalud/app/src/main/res/layout/activity_pastillero.xml" value="0.36666666666666664" />
@@ -25,6 +25,8 @@
         <entry key="..\:/Users/FATIMA/AndroidStudioProjects/SuperSalud/app/src/main/res/layout/content_pastillero.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/FATIMA/AndroidStudioProjects/SuperSalud/app/src/main/res/layout/fragment_first.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/FATIMA/AndroidStudioProjects/SuperSalud/app/src/main/res/layout/fragment_second.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/FATIMA/AndroidStudioProjects/SuperSalud/app/src/main/res/menu/menu_app.xml" value="0.16354166666666667" />
+        <entry key="..\:/Users/FATIMA/AndroidStudioProjects/SuperSalud/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1796875" />
       </map>
     </option>
   </component>
