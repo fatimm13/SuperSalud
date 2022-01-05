@@ -6,10 +6,13 @@
     <string name="title_activity_pastillero">Pastillero</string>
     <string name="desc_pastillero">Listado de medicacion</string>
     <string name="agua">Tu agua hoy</string>
-    <string name="podometro">Podómetro</string>
-    <string name="agua_menu">Agua</string>
-    <string name="steps">Tus pasos hoy</string>
-    <string name="add_vaso">Nuevo vaso</string>
+    <string name="objetivos">Definir Objetivos</string>
+    <string name="historial">Historial</string>
+    <string name="your_steps">Tus pasos hoy</string>
+    <string name="steps">pasos </string>
+
+    <string name="add_vaso">+</string>
+    <string name="rem_vaso">-</string>
 
     <string name="name_medication">Nombre medicación: </string>
     <string name="time_medication">Tiempo entre dosis:</string>

@@ -44,14 +44,26 @@
 
 
     <Button
+        android:id="@+id/button_rem_glass"
+        android:layout_width="49dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="8dp"
+        android:onClick="redProgr"
+        android:text="@string/rem_vaso"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.182"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progress_bar_water" />
+
+    <Button
         android:id="@+id/button_add_glass"
-        android:layout_width="120dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="4dp"
+        android:layout_width="54dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="8dp"
         android:onClick="incrementProgr"
         android:text="@string/add_vaso"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.226"
+        app:layout_constraintHorizontal_bias="0.369"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progress_bar_water" />
 
@@ -97,7 +109,7 @@
         android:layout_width="300dp"
         android:layout_height="85dp"
         android:layout_marginTop="40dp"
-        android:text="@string/agua_menu"
+        android:text="@string/historial"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
@@ -108,7 +120,7 @@
         android:layout_width="300dp"
         android:layout_height="85dp"
         android:layout_marginTop="40dp"
-        android:text="@string/podometro"
+        android:text="@string/objetivos"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
@@ -127,15 +139,29 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/tx_numPasos"
+        android:layout_width="102dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/steps"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/progress_bar_steps"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="@+id/progress_bar_steps"
+        app:layout_constraintTop_toBottomOf="@+id/progress_bar_steps" />
+
+    <TextView
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:text="@string/steps"
+        android:layout_marginBottom="4dp"
+        android:text="@string/your_steps"
         android:textColor="#000000"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/progress_bar_steps"
         app:layout_constraintEnd_toEndOf="@+id/progress_bar_steps"
+        app:layout_constraintHorizontal_bias="0.411"
         app:layout_constraintStart_toStartOf="@+id/progress_bar_steps" />
 
     <TextView

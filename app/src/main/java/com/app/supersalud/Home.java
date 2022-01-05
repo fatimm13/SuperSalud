@@ -38,6 +38,13 @@ public class Home extends AppCompatActivity {
         }
         updateProgressBar();
     }
+    public void redProgr (View v){
+        if(progr_water> 0) {
+            progr_water-=10;
+        }
+        updateProgressBar();
+    }
+
     private void updateProgressBar(){
         TextView txProg = (TextView) findViewById(R.id.text_progress_water);
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar_water);
