@@ -22,7 +22,10 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -56,12 +59,14 @@ public class Home extends AppCompatActivity {
 
         usuario = db.collection("usuarios").document(email);
 
-        cargaDatos(nombre);
+        creaUsuario(nombre);
+
+        cargaDatos();
 
 
     }
 
-    private void cargaDatos(String nombre) {
+    private void creaUsuario(String nombre) {
 
         usuario.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -84,7 +89,49 @@ public class Home extends AppCompatActivity {
             }
         });
 
+    }
 
+    private void cargaDatos() {
+
+        //LocalDate hoy = LocalDate.now();
+
+        SimpleDateFormat objSDF = new SimpleDateFormat("yyyy-mm-dd");
+        Date fecha = new Date();
+        String hoy = objSDF.format(fecha);
+
+        usuario.collection("historial").document(hoy).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    int vasos = 0;
+                    int pasos = 0;
+                    if (document.exists()) {
+
+                        Map<String, Object> datos = document.getData();
+                        vasos = (Integer) datos.get("vasos");
+                        pasos = (Integer) datos.get("datos");
+
+                        Toast.makeText(getApplicationContext(), "Datos: " + document.getData(), Toast.LENGTH_SHORT).show();
+                    } else {
+                        // No existe, por lo que se crea
+                        Map<String, Object> datos = new HashMap<>();
+                        datos.put("vasos", vasos);
+                        datos.put("pasos", pasos);
+                        usuario.collection("historial").document(hoy).set(datos, SetOptions.merge());
+                    }
+                    /**
+                    TextView numVasos = (TextView) findViewById(R.id.num_vasos);
+                    numVasos.setText(vasos);
+                    TextView numPasos = (TextView) findViewById(R.id.num_pasos);
+                    numPasos.setText(pasos);
+                     **/
+
+                } else {
+                    Toast.makeText(getApplicationContext(), "Fallo con " + task.getException(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
     }
 

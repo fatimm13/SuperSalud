@@ -7,6 +7,14 @@
     tools:context=".Home">
 
     <TextView
+        android:id="@+id/num_pasos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="247dp"
+        tools:layout_editor_absoluteY="273dp" />
+
+    <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -51,7 +59,7 @@
         android:onClick="redProgr"
         android:text="@string/rem_vaso"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.182"
+        app:layout_constraintHorizontal_bias="0.151"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progress_bar_water" />
 
@@ -177,5 +185,13 @@
         app:layout_constraintEnd_toEndOf="@+id/progress_bar_water"
         app:layout_constraintHorizontal_bias="0.451"
         app:layout_constraintStart_toStartOf="@+id/progress_bar_water" />
+
+    <TextView
+        android:id="@+id/num_vasos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="89dp"
+        tools:layout_editor_absoluteY="275dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
