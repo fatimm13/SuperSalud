@@ -94,6 +94,8 @@ public class MainActivity extends AppCompatActivity {
                     public void onActivityResult(ActivityResult result) {
 
                         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+                        //tx.setText(result.toString());
+                        //Log.w(TAG,result.toString());
                         if (result.getResultCode() == Activity.RESULT_OK) {
                             // The Task returned from this call is always completed, no need to attach
                             // a listener.
@@ -103,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
                                 GoogleSignInAccount account = task.getResult(ApiException.class);
                                 if (account != null) {
                                     firebaseAuthWithGoogle(account.getIdToken());
+
                                 }
 
                                 /////updateUI(account);
