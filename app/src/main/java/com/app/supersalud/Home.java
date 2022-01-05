@@ -95,7 +95,7 @@ public class Home extends AppCompatActivity {
 
         //LocalDate hoy = LocalDate.now();
 
-        SimpleDateFormat objSDF = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat objSDF = new SimpleDateFormat("yyyy-MM-dd");
         Date fecha = new Date();
         String hoy = objSDF.format(fecha);
 
