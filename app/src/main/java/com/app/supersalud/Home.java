@@ -5,20 +5,38 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Home extends AppCompatActivity {
 
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseFirestore db;
 
     private int progr_water = 0;
+
+    private final static int OBJETIVO_PASOS = 2000;
+    private final static int OBJETIVO_VASOS = 8;
+
+    private DocumentReference usuario;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +47,43 @@ public class Home extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         String email = bundle.getString("email");
+        String nombre = bundle.getString("nombre");
 
         TextView tx = (TextView) findViewById(R.id.textView2);
-        tx.setText(email);
+        tx.setText(nombre);
+
+        db = FirebaseFirestore.getInstance();
+
+        usuario = db.collection("usuarios").document(email);
+
+        cargaDatos(nombre);
+
+
+    }
+
+    private void cargaDatos(String nombre) {
+
+        usuario.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Toast.makeText(getApplicationContext(), "Datos: " + document.getData(), Toast.LENGTH_SHORT).show();
+                    } else {
+                        // No existe, por lo que se crea
+                        Map<String, Object> datos = new HashMap<>();
+                        datos.put("nombre", nombre);
+                        datos.put("objetivo_vasos", OBJETIVO_VASOS);
+                        datos.put("objetivo_pasos", OBJETIVO_PASOS);
+                        usuario.set(datos, SetOptions.merge());
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "Fallo con " + task.getException(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
 
 
     }

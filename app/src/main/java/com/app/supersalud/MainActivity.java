@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+/**
     @Override
     protected void onStart() {
         super.onStart();
@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
         //GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         //updateUI(account);
     }
-
+**/
 
     // [START auth_with_google]
     private void firebaseAuthWithGoogle(String idToken) {
@@ -172,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
     private void goHome(FirebaseUser user) {
         Bundle b = new Bundle();
         b.putString("email", user.getEmail());
+        b.putString("nombre", user.getDisplayName());
         Intent intent = new Intent(this, Home.class);
         intent.putExtras(b);
         startActivity(intent);
