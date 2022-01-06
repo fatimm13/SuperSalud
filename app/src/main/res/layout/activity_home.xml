@@ -135,6 +135,7 @@
         android:layout_height="85dp"
         android:layout_marginTop="40dp"
         android:text="@string/objetivos"
+        android:onClick="goObjectives"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"

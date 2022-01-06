@@ -206,7 +206,17 @@ public class Home extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    public void goObjectives (View view){
+        Bundle b = new Bundle();
+        b.putString("email", usuario.getId());
+        Intent intent = new Intent(this, Objetivos.class);
+        intent.putExtras(b);
+        startActivity(intent);
+    }
 }
+
+
 
 /**
 
