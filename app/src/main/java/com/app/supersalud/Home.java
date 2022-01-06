@@ -32,11 +32,10 @@ import java.util.Map;
 
 public class Home extends AppCompatActivity {
 
-    //TODO Borrar luego
-    private static final String TAG = "GoogleActivity";
+    //private static final String TAG = "GoogleActivity";
     private FirebaseFirestore db;
 
-    private int progr_water;
+    protected int progr_water, progr_steps;
 
     private final static int OBJETIVO_PASOS = 2000;
     private final static int OBJETIVO_VASOS = 8;
@@ -67,12 +66,10 @@ public class Home extends AppCompatActivity {
         //Si no existe el usuario lo crea
         creaUsuario(nombre);
 
-        //Se cargan los valores del usuario en variables de la clase
+        //Se cargan los valores del usuario en variables de la clase y se cambian los datos mostrados
         cargaDatos();
-        Log.w(TAG, progr_water + " Cuarto");
 
-        //Se actualizan los datos mostrados
-        //updateProgressBar();
+        //EN ESTE PUNTO POR ALGUNA RAZON progr_water LO TRATA COMO 0, TENERLO MUY EN CUENTA
     }
 
     private void creaUsuario(String nombre) {
@@ -83,9 +80,8 @@ public class Home extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-
                         //Muestra los datos del usuario si este existe, no hace más, es para debugging
-                        Toast.makeText(getApplicationContext(), "DatosB: " + document.getData(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), "DatosB: " + document.getData(), Toast.LENGTH_SHORT).show();
                     } else {
                         // No existe, por lo que se crea
                         Map<String, Object> datos = new HashMap<>();
@@ -126,29 +122,14 @@ public class Home extends AppCompatActivity {
                         //Si el documento existe cogemos los vasos de agua que tenga este día
                         Map<String, Object> datos = document.getData();
                         progr_water = Integer.parseInt(datos.get("vasos").toString());
-                        Log.w(TAG, progr_water + " Tercero");
+                        progr_steps = Integer.parseInt(datos.get("pasos").toString());
 
-                        TextView txProg = findViewById(R.id.text_progress_water);
-                        TextView txVasos = findViewById(R.id.num_vasos);
-                        ProgressBar progressBar = findViewById(R.id.progress_bar_water);
-
-                        //Calculamos el porcentaje de agua bebido frente al objetivo
-                        int porc = (progr_water*100)/OBJETIVO_VASOS;
-
-                        Log.w(TAG, porc+ " Primero");
-                        Log.w(TAG, (progr_water) + " Segundo");
-
-                        txProg.setText((porc>100 ? 100 : porc) +"%");
-                        txVasos.setText(progr_water+"");
-                        progressBar.setProgress(porc>100 ? 100 : porc);
-
-                        //Se tratarán cuando funcionen los pasos
-                        //pasos = (Long) datos.get("pasos");
+                        updateDataShown();
 
                     } else {
                         // No existe, por lo que se crean los datos a introducir poniendo ambos a 0
                         Map<String, Object> datos = new HashMap<>();
-                        //progr_water = 0;
+                        progr_water = 0;
                         datos.put("vasos", 0);
                         datos.put("pasos", 0);
 
@@ -166,26 +147,19 @@ public class Home extends AppCompatActivity {
 
     public void incrementProgr (View v){
         progr_water+=1;
-        updateProgressBar();
+        updateDatabase();
+        updateDataShown();
 
     }
     public void redProgr (View v){
         if(progr_water> 0) {
             progr_water-=1;
         }
-        updateProgressBar();
+        updateDatabase();
+        updateDataShown();
     }
 
-    private void updateProgressBar(){
-
-        //Cogemos de nuevo la fecha de hoy
-        SimpleDateFormat objSDF = new SimpleDateFormat("yyyy-MM-dd");
-        Date fecha = new Date();
-        String hoy = objSDF.format(fecha);
-
-        //Actualizamos el valor de vasos en la base de datos por si se han actualizado localmente
-        Map<String, Object> datos = new HashMap<>();
-        datos.put("vasos", progr_water);
+    private void updateDataShown(){
 
         //Buscamos el texto del porcentaje, del numero de vasos y la barra de progresos.
         TextView txProg = findViewById(R.id.text_progress_water);
@@ -195,13 +169,22 @@ public class Home extends AppCompatActivity {
         //Calculamos el porcentaje de agua bebido frente al objetivo
         int porc = (progr_water*100)/OBJETIVO_VASOS;
 
-        Log.w(TAG, porc+ " Primero");
-        Log.w(TAG, (progr_water) + " Segundo");
-
+        //Ponemos el valor que tengan los datos
         txProg.setText((porc>100 ? 100 : porc) +"%");
         txVasos.setText(progr_water+"");
         progressBar.setProgress(porc>100 ? 100 : porc);
+    }
 
+    private void updateDatabase(){
+
+        //Cogemos de nuevo la fecha de hoy
+        SimpleDateFormat objSDF = new SimpleDateFormat("yyyy-MM-dd");
+        Date fecha = new Date();
+        String hoy = objSDF.format(fecha);
+
+        //Actualizamos el valor de vasos en la base de datos
+        Map<String, Object> datos = new HashMap<>();
+        datos.put("vasos", progr_water);
         usuario.collection("historial").document(hoy).set(datos, SetOptions.merge());
     }
 
