@@ -32,7 +32,7 @@ import java.util.Map;
 
 public class Home extends AppCompatActivity {
 
-    //TODO: Borrar, aquí solo para pruebas
+    //TODO Borrar luego
     private static final String TAG = "GoogleActivity";
     private FirebaseFirestore db;
 
@@ -47,25 +47,32 @@ public class Home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        updateProgressBar();
 
+        //Sacas del intent los datos del usuario y los guardas en variables locales
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         String email = bundle.getString("email");
         String nombre = bundle.getString("nombre");
 
-        TextView tx = (TextView) findViewById(R.id.textView2);
+        //Pones el nombre del usuario arriba de la página
+        TextView tx = findViewById(R.id.textView2);
         tx.setText(nombre);
 
+        //Guardas una conexión a la base de datos en una variable de la clase
         db = FirebaseFirestore.getInstance();
 
+        //Guardas la referencia en la bd al usuario registrado en otra variable de clase
         usuario = db.collection("usuarios").document(email);
 
+        //Si no existe el usuario lo crea
         creaUsuario(nombre);
 
+        //Se cargan los valores del usuario en variables de la clase
         cargaDatos();
+        Log.w(TAG, progr_water + " Cuarto");
 
-
+        //Se actualizan los datos mostrados
+        //updateProgressBar();
     }
 
     private void creaUsuario(String nombre) {
@@ -76,16 +83,24 @@ public class Home extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
+
+                        //Muestra los datos del usuario si este existe, no hace más, es para debugging
                         Toast.makeText(getApplicationContext(), "DatosB: " + document.getData(), Toast.LENGTH_SHORT).show();
                     } else {
                         // No existe, por lo que se crea
                         Map<String, Object> datos = new HashMap<>();
+
+                        //Se inicializan el nombre como el nombre introducido y los otros valores por ahora están hardcodeados.
                         datos.put("nombre", nombre);
                         datos.put("objetivo_vasos", OBJETIVO_VASOS);
                         datos.put("objetivo_pasos", OBJETIVO_PASOS);
+
+                        //Se introducen estos datos en la base de datos
                         usuario.set(datos, SetOptions.merge());
                     }
                 } else {
+
+                    //Gestión de errores para debugging
                     Toast.makeText(getApplicationContext(), "Fallo con " + task.getException(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -97,6 +112,7 @@ public class Home extends AppCompatActivity {
 
         //LocalDate hoy = LocalDate.now();
 
+        //Creamos la fecha de hoy
         SimpleDateFormat objSDF = new SimpleDateFormat("yyyy-MM-dd");
         Date fecha = new Date();
         String hoy = objSDF.format(fecha);
@@ -106,46 +122,41 @@ public class Home extends AppCompatActivity {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
-                    long vasos = 0;
-                    long pasos = 0;
                     if (document.exists()) {
-
+                        //Si el documento existe cogemos los vasos de agua que tenga este día
                         Map<String, Object> datos = document.getData();
                         progr_water = Integer.parseInt(datos.get("vasos").toString());
-                        pasos = (Long) datos.get("pasos");
+                        Log.w(TAG, progr_water + " Tercero");
 
                         TextView txProg = findViewById(R.id.text_progress_water);
                         TextView txVasos = findViewById(R.id.num_vasos);
                         ProgressBar progressBar = findViewById(R.id.progress_bar_water);
 
+                        //Calculamos el porcentaje de agua bebido frente al objetivo
                         int porc = (progr_water*100)/OBJETIVO_VASOS;
 
+                        Log.w(TAG, porc+ " Primero");
+                        Log.w(TAG, (progr_water) + " Segundo");
 
                         txProg.setText((porc>100 ? 100 : porc) +"%");
                         txVasos.setText(progr_water+"");
                         progressBar.setProgress(porc>100 ? 100 : porc);
 
-                        //TextView txt = (TextView) findViewById(R.id.num_vasos);
-                        //txt.setText("DatosA: " + vasos + " A " + pasos + " AAA " + document.getData());
-
-                        //Toast.makeText(getApplicationContext(), "DatosA: " + vasos + " A " + pasos + " AAA " + document.getData(), Toast.LENGTH_SHORT).show();
-
+                        //Se tratarán cuando funcionen los pasos
+                        //pasos = (Long) datos.get("pasos");
 
                     } else {
-                        // No existe, por lo que se crea
+                        // No existe, por lo que se crean los datos a introducir poniendo ambos a 0
                         Map<String, Object> datos = new HashMap<>();
-                        datos.put("vasos", vasos);
-                        datos.put("pasos", pasos);
+                        //progr_water = 0;
+                        datos.put("vasos", 0);
+                        datos.put("pasos", 0);
+
+                        //Guardamos estos datos en la base de datos
                         usuario.collection("historial").document(hoy).set(datos, SetOptions.merge());
                     }
-                    /**
-                    TextView numVasos = (TextView) findViewById(R.id.num_vasos);
-                    numVasos.setText(vasos);
-                    TextView numPasos = (TextView) findViewById(R.id.num_pasos);
-                    numPasos.setText(pasos);
-                     **/
-
                 } else {
+                    //Gestion de errores
                     Toast.makeText(getApplicationContext(), "Fallo con " + task.getException(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -167,28 +178,31 @@ public class Home extends AppCompatActivity {
 
     private void updateProgressBar(){
 
+        //Cogemos de nuevo la fecha de hoy
         SimpleDateFormat objSDF = new SimpleDateFormat("yyyy-MM-dd");
         Date fecha = new Date();
         String hoy = objSDF.format(fecha);
 
+        //Actualizamos el valor de vasos en la base de datos por si se han actualizado localmente
         Map<String, Object> datos = new HashMap<>();
         datos.put("vasos", progr_water);
 
+        //Buscamos el texto del porcentaje, del numero de vasos y la barra de progresos.
         TextView txProg = findViewById(R.id.text_progress_water);
         TextView txVasos = findViewById(R.id.num_vasos);
         ProgressBar progressBar = findViewById(R.id.progress_bar_water);
 
+        //Calculamos el porcentaje de agua bebido frente al objetivo
         int porc = (progr_water*100)/OBJETIVO_VASOS;
 
+        Log.w(TAG, porc+ " Primero");
+        Log.w(TAG, (progr_water) + " Segundo");
 
         txProg.setText((porc>100 ? 100 : porc) +"%");
         txVasos.setText(progr_water+"");
         progressBar.setProgress(porc>100 ? 100 : porc);
 
-        if(usuario != null){
-            usuario.collection("historial").document(hoy).set(datos, SetOptions.merge());
-        }
-
+        usuario.collection("historial").document(hoy).set(datos, SetOptions.merge());
     }
 
     @Override

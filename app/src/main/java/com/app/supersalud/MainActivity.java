@@ -121,8 +121,6 @@ public class MainActivity extends AppCompatActivity {
 
         tx = (TextView) findViewById(R.id.textView3);
         tx.setText("Hola");
-
-
     }
 
 /**
