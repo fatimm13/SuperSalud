@@ -36,7 +36,7 @@ public class Home extends AppCompatActivity {
     private static final String TAG = "GoogleActivity";
     private FirebaseFirestore db;
 
-    private int progr_water = 0;
+    private int progr_water;
 
     private final static int OBJETIVO_PASOS = 2000;
     private final static int OBJETIVO_VASOS = 8;
@@ -111,17 +111,25 @@ public class Home extends AppCompatActivity {
                     if (document.exists()) {
 
                         Map<String, Object> datos = document.getData();
-                        try{
-                            vasos = (Long) datos.get("vasos");
-                            pasos = (Long) datos.get("pasos");
-                            //TextView txt = (TextView) findViewById(R.id.num_vasos);
-                            //txt.setText("DatosA: " + vasos + " A " + pasos + " AAA " + document.getData());
+                        progr_water = Integer.parseInt(datos.get("vasos").toString());
+                        pasos = (Long) datos.get("pasos");
 
-                            //Toast.makeText(getApplicationContext(), "DatosA: " + vasos + " A " + pasos + " AAA " + document.getData(), Toast.LENGTH_SHORT).show();
-                        }catch (Exception e){
-                            TextView txt = (TextView) findViewById(R.id.num_vasos);
-                            txt.setText(e.getMessage());
-                        }
+                        TextView txProg = findViewById(R.id.text_progress_water);
+                        TextView txVasos = findViewById(R.id.num_vasos);
+                        ProgressBar progressBar = findViewById(R.id.progress_bar_water);
+
+                        int porc = (progr_water*100)/OBJETIVO_VASOS;
+
+
+                        txProg.setText((porc>100 ? 100 : porc) +"%");
+                        txVasos.setText(progr_water+"");
+                        progressBar.setProgress(porc>100 ? 100 : porc);
+
+                        //TextView txt = (TextView) findViewById(R.id.num_vasos);
+                        //txt.setText("DatosA: " + vasos + " A " + pasos + " AAA " + document.getData());
+
+                        //Toast.makeText(getApplicationContext(), "DatosA: " + vasos + " A " + pasos + " AAA " + document.getData(), Toast.LENGTH_SHORT).show();
+
 
                     } else {
                         // No existe, por lo que se crea
