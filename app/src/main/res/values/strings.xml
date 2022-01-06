@@ -11,7 +11,8 @@
     <string name="objetivos">Definir Objetivos</string>
     <string name="historial">Historial</string>
     <string name="your_steps">Tus pasos hoy</string>
-    <string name="steps">pasos </string>
+    <string name="steps">pasos</string>
+    <string name="glasses">Vasos</string>
 
     <string name="add_vaso">+</string>
     <string name="rem_vaso">-</string>

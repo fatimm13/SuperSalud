@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
@@ -31,6 +32,8 @@ import java.util.Map;
 
 public class Home extends AppCompatActivity {
 
+    //TODO: Borrar, aquí solo para pruebas
+    private static final String TAG = "GoogleActivity";
     private FirebaseFirestore db;
 
     private int progr_water = 0;
@@ -39,7 +42,6 @@ public class Home extends AppCompatActivity {
     private final static int OBJETIVO_VASOS = 8;
 
     private DocumentReference usuario;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +76,7 @@ public class Home extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        Toast.makeText(getApplicationContext(), "Datos: " + document.getData(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "DatosB: " + document.getData(), Toast.LENGTH_SHORT).show();
                     } else {
                         // No existe, por lo que se crea
                         Map<String, Object> datos = new HashMap<>();
@@ -104,15 +106,23 @@ public class Home extends AppCompatActivity {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
-                    int vasos = 0;
-                    int pasos = 0;
+                    long vasos = 0;
+                    long pasos = 0;
                     if (document.exists()) {
 
                         Map<String, Object> datos = document.getData();
-                        vasos = (Integer) datos.get("vasos");
-                        pasos = (Integer) datos.get("datos");
+                        try{
+                            vasos = (Long) datos.get("vasos");
+                            pasos = (Long) datos.get("pasos");
+                            //TextView txt = (TextView) findViewById(R.id.num_vasos);
+                            //txt.setText("DatosA: " + vasos + " A " + pasos + " AAA " + document.getData());
 
-                        Toast.makeText(getApplicationContext(), "Datos: " + document.getData(), Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getApplicationContext(), "DatosA: " + vasos + " A " + pasos + " AAA " + document.getData(), Toast.LENGTH_SHORT).show();
+                        }catch (Exception e){
+                            TextView txt = (TextView) findViewById(R.id.num_vasos);
+                            txt.setText(e.getMessage());
+                        }
+
                     } else {
                         // No existe, por lo que se crea
                         Map<String, Object> datos = new HashMap<>();
@@ -136,23 +146,41 @@ public class Home extends AppCompatActivity {
     }
 
     public void incrementProgr (View v){
-        if(progr_water<= 90) {
-            progr_water+=10;
-        }
+        progr_water+=1;
         updateProgressBar();
+
     }
     public void redProgr (View v){
         if(progr_water> 0) {
-            progr_water-=10;
+            progr_water-=1;
         }
         updateProgressBar();
     }
 
     private void updateProgressBar(){
-        TextView txProg = (TextView) findViewById(R.id.text_progress_water);
-        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_bar_water);
-        txProg.setText(progr_water+"%");
-        progressBar.setProgress(progr_water);
+
+        SimpleDateFormat objSDF = new SimpleDateFormat("yyyy-MM-dd");
+        Date fecha = new Date();
+        String hoy = objSDF.format(fecha);
+
+        Map<String, Object> datos = new HashMap<>();
+        datos.put("vasos", progr_water);
+
+        TextView txProg = findViewById(R.id.text_progress_water);
+        TextView txVasos = findViewById(R.id.num_vasos);
+        ProgressBar progressBar = findViewById(R.id.progress_bar_water);
+
+        int porc = (progr_water*100)/OBJETIVO_VASOS;
+
+
+        txProg.setText((porc>100 ? 100 : porc) +"%");
+        txVasos.setText(progr_water+"");
+        progressBar.setProgress(porc>100 ? 100 : porc);
+
+        if(usuario != null){
+            usuario.collection("historial").document(hoy).set(datos, SetOptions.merge());
+        }
+
     }
 
     @Override
