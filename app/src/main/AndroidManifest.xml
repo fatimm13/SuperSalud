@@ -13,6 +13,7 @@
         android:theme="@style/Theme.SuperSalud">
         <activity
             android:name=".Objetivos"
+            android:parentActivityName=".Home"
             android:exported="false" />
         <activity
             android:name=".Home"

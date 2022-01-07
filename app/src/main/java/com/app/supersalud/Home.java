@@ -52,10 +52,6 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        //Pones el nombre del usuario arriba de la página
-        TextView tx = findViewById(R.id.textView2);
-        tx.setText(nombre);
-
         //Buscamos el texto del porcentaje, del numero de vasos y la barra de progresos.
         txProg = findViewById(R.id.text_progress_water);
         txVasos = findViewById(R.id.num_vasos);
@@ -72,7 +68,12 @@ public class Home extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         //Guardas la referencia en la bd al usuario registrado en otra variable de clase
-        usuario = UsuarioSingleton.getInstance(email, nombre).usuario;
+        usuario = UsuarioSingleton.getInstance().usuario;
+        nombre = UsuarioSingleton.getInstance().nombre;
+
+        //Pones el nombre del usuario arriba de la página
+        TextView tx = findViewById(R.id.textView2);
+        tx.setText(nombre);
         //usuario = db.collection("usuarios").document(email);
 
         //Si no existe el usuario lo crea
@@ -93,7 +94,6 @@ public class Home extends AppCompatActivity {
                         Map<String, Object> datos = document.getData();
                         objetivo_vasos = Integer.parseInt(datos.get("objetivo_vasos").toString());
                         objetivo_pasos = Integer.parseInt(datos.get("objetivo_pasos").toString());
-                        Toast.makeText(getApplicationContext(), "AAAAH", Toast.LENGTH_SHORT).show();
 
                     } else {
                         // No existe el usuario, por lo que se crea
@@ -152,7 +152,6 @@ public class Home extends AppCompatActivity {
 
                         //Guardamos estos datos en la base de datos
                         historial.set(datos);
-                        Toast.makeText(getApplicationContext(), "OOOOH", Toast.LENGTH_SHORT).show();
                     }
                     updateDataShown();
                 } else {
@@ -210,6 +209,7 @@ public class Home extends AppCompatActivity {
             case R.id.cerrar_sesion:
                 usuario = null;
                 historial = null;
+                UsuarioSingleton.cerrarSesion();
                 Intent intent = new Intent(this, MainActivity.class);
                 this.startActivity(intent);
                 return true;

@@ -38,4 +38,8 @@ public class UsuarioSingleton {
         return instance;
     }
 
+    public static void cerrarSesion() {
+        instance = null;
+    }
+
 }
