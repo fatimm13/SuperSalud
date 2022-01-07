@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,16 +15,10 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldValue;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.SetOptions;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,8 +32,8 @@ public class Home extends AppCompatActivity {
 
     private DocumentReference usuario, historial;
 
-    private TextView txProg, txVasos;
-    private ProgressBar progressBar;
+    private TextView txProgWater, txVasos, txProgSteps, txPasos;
+    private ProgressBar progressBarWater, progressBarSteps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +41,15 @@ public class Home extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         //Buscamos el texto del porcentaje, del numero de vasos y la barra de progresos.
-        txProg = findViewById(R.id.text_progress_water);
+        txProgWater = findViewById(R.id.text_progress_water);
         txVasos = findViewById(R.id.num_vasos);
-        progressBar = findViewById(R.id.progress_bar_water);
+        progressBarWater = findViewById(R.id.progress_bar_water);
+        progressBarWater.setProgress(0);
+
+        txProgSteps = findViewById(R.id.text_progress_steps);
+        txPasos = findViewById(R.id.num_pasos);
+        progressBarSteps = findViewById(R.id.progress_bar_steps);
+        progressBarSteps.setProgress(0);
 
     }
 
@@ -178,9 +177,9 @@ public class Home extends AppCompatActivity {
         porc = Math.min(porc, 100);
 
         //Ponemos el valor que tengan los datos
-        txProg.setText((porc) +"%");
+        txProgWater.setText((porc) +"%");
         txVasos.setText(progr_water+"");
-        progressBar.setProgress(porc);
+        progressBarWater.setProgress(porc);
     }
 
     private void updateDatabase(){
@@ -220,6 +219,11 @@ public class Home extends AppCompatActivity {
 
     public void goObjectives (View view){
         Intent intent = new Intent(this, Objetivos.class);
+        startActivity(intent);
+    }
+
+    public void goPills (View view){
+        Intent intent = new Intent(this, Pastillero.class);
         startActivity(intent);
     }
 }

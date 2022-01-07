@@ -77,6 +77,7 @@ public class Objetivos extends AppCompatActivity {
                 int objetivo_pasos = Integer.parseInt(txObjPasos.getText().toString());
                 usuario.update("objetivo_vasos", objetivo_vasos);
                 usuario.update("objetivo_pasos", objetivo_pasos);
+                Toast.makeText(getApplicationContext(),  R.string.Objetivos_actualizados, Toast.LENGTH_SHORT).show();
             }
         });
     }

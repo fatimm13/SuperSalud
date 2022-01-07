@@ -8,11 +8,18 @@
     <string name="title_activity_pastillero">Pastillero</string>
     <string name="desc_pastillero">Listado de medicacion</string>
     <string name="agua">Tu agua hoy</string>
+    <string name="water">Agua</string>
+    <string name="pasos">Pasos</string>
     <string name="objetivos">Definir Objetivos</string>
     <string name="historial">Historial</string>
     <string name="your_steps">Tus pasos hoy</string>
     <string name="steps">pasos</string>
     <string name="glasses">Vasos</string>
+    <string name="current_objective">Objetivo actual:</string>
+    <string name="new_objective">Nuevo objetivo:</string>
+    <string name="Actualiza_datos">Actualiza datos</string>
+    <string name="Objetivos_actualizados">¡Objetivos actualizados!</string>
+
 
     <string name="add_vaso">+</string>
     <string name="rem_vaso">-</string>
