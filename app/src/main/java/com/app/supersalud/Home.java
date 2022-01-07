@@ -37,10 +37,15 @@ public class Home extends AppCompatActivity {
 
     protected int progr_water, progr_steps;
 
-    private final static int OBJETIVO_PASOS = 2000;
-    private final static int OBJETIVO_VASOS = 8;
+    private int objetivo_pasos;
+    private int objetivo_vasos;
 
-    private DocumentReference usuario;
+    private String email, nombre;
+
+    private DocumentReference usuario, historial;
+
+    private TextView txProg, txVasos;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,29 +55,48 @@ public class Home extends AppCompatActivity {
         //Sacas del intent los datos del usuario y los guardas en variables locales
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        String email = bundle.getString("email");
-        String nombre = bundle.getString("nombre");
+        email = bundle.getString("email");
+        nombre = bundle.getString("nombre");
 
         //Pones el nombre del usuario arriba de la página
         TextView tx = findViewById(R.id.textView2);
         tx.setText(nombre);
 
+        //Buscamos el texto del porcentaje, del numero de vasos y la barra de progresos.
+        txProg = findViewById(R.id.text_progress_water);
+        txVasos = findViewById(R.id.num_vasos);
+        progressBar = findViewById(R.id.progress_bar_water);
+
         //Guardas una conexión a la base de datos en una variable de la clase
         db = FirebaseFirestore.getInstance();
 
+    }
+
+
+    // Lo he puesto aqui porque CREO que asi no peta cuando cierras sesion, pero maybe es cosa de mi portatil
+    @Override
+    protected void onStart() {
+        super.onStart();
         //Guardas la referencia en la bd al usuario registrado en otra variable de clase
         usuario = db.collection("usuarios").document(email);
 
         //Si no existe el usuario lo crea
-        creaUsuario(nombre);
+        creaCargaUsuario(nombre);
+
+        //Creamos la fecha de hoy
+        SimpleDateFormat objSDF = new SimpleDateFormat("yyyy-MM-dd");
+        Date fecha = new Date();
+        String hoy = objSDF.format(fecha);
+
+        historial = usuario.collection("historial").document(hoy);
 
         //Se cargan los valores del usuario en variables de la clase y se cambian los datos mostrados
-        cargaDatos();
+        creaCargaDatos();
 
         //EN ESTE PUNTO POR ALGUNA RAZON progr_water LO TRATA COMO 0, TENERLO MUY EN CUENTA
     }
 
-    private void creaUsuario(String nombre) {
+    private void creaCargaUsuario(String nombre) {
 
         usuario.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -80,40 +104,39 @@ public class Home extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        //Muestra los datos del usuario si este existe, no hace más, es para debugging
-                        //Toast.makeText(getApplicationContext(), "DatosB: " + document.getData(), Toast.LENGTH_SHORT).show();
+                        //Si el documento existe cogemos los objetivos del usuario
+                        Map<String, Object> datos = document.getData();
+                        objetivo_vasos = Integer.parseInt(datos.get("objetivo_vasos").toString());
+                        objetivo_pasos = Integer.parseInt(datos.get("objetivo_pasos").toString());
+                        Toast.makeText(getApplicationContext(), "AAAAH", Toast.LENGTH_SHORT).show();
+
                     } else {
-                        // No existe, por lo que se crea
+                        // No existe el usuario, por lo que se crea
+                        objetivo_vasos = 8;
+                        objetivo_pasos = 2000;
+
                         Map<String, Object> datos = new HashMap<>();
 
                         //Se inicializan el nombre como el nombre introducido y los otros valores por ahora están hardcodeados.
                         datos.put("nombre", nombre);
-                        datos.put("objetivo_vasos", OBJETIVO_VASOS);
-                        datos.put("objetivo_pasos", OBJETIVO_PASOS);
+                        datos.put("objetivo_vasos", objetivo_vasos);
+                        datos.put("objetivo_pasos", objetivo_pasos);
 
                         //Se introducen estos datos en la base de datos
-                        usuario.set(datos, SetOptions.merge());
+                        usuario.set(datos);
                     }
-                } else {
 
+                } else {
                     //Gestión de errores para debugging
                     Toast.makeText(getApplicationContext(), "Fallo con " + task.getException(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
     }
 
-    private void cargaDatos() {
+    private void creaCargaDatos() {
 
-        //LocalDate hoy = LocalDate.now();
-
-        //Creamos la fecha de hoy
-        SimpleDateFormat objSDF = new SimpleDateFormat("yyyy-MM-dd");
-        Date fecha = new Date();
-        String hoy = objSDF.format(fecha);
-
-        usuario.collection("historial").document(hoy).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        historial.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
@@ -124,18 +147,19 @@ public class Home extends AppCompatActivity {
                         progr_water = Integer.parseInt(datos.get("vasos").toString());
                         progr_steps = Integer.parseInt(datos.get("pasos").toString());
 
-                        updateDataShown();
-
                     } else {
                         // No existe, por lo que se crean los datos a introducir poniendo ambos a 0
                         Map<String, Object> datos = new HashMap<>();
                         progr_water = 0;
-                        datos.put("vasos", 0);
-                        datos.put("pasos", 0);
+                        progr_steps = 0;
+                        datos.put("vasos", progr_water);
+                        datos.put("pasos", progr_steps);
 
                         //Guardamos estos datos en la base de datos
-                        usuario.collection("historial").document(hoy).set(datos, SetOptions.merge());
+                        historial.set(datos);
+                        Toast.makeText(getApplicationContext(), "OOOOH", Toast.LENGTH_SHORT).show();
                     }
+                    updateDataShown();
                 } else {
                     //Gestion de errores
                     Toast.makeText(getApplicationContext(), "Fallo con " + task.getException(), Toast.LENGTH_SHORT).show();
@@ -160,14 +184,8 @@ public class Home extends AppCompatActivity {
     }
 
     private void updateDataShown(){
-
-        //Buscamos el texto del porcentaje, del numero de vasos y la barra de progresos.
-        TextView txProg = findViewById(R.id.text_progress_water);
-        TextView txVasos = findViewById(R.id.num_vasos);
-        ProgressBar progressBar = findViewById(R.id.progress_bar_water);
-
         //Calculamos el porcentaje de agua bebido frente al objetivo
-        int porc = (progr_water*100)/OBJETIVO_VASOS;
+        int porc = (progr_water*100)/objetivo_vasos;
 
         //Ponemos el valor que tengan los datos
         txProg.setText((porc>100 ? 100 : porc) +"%");
@@ -176,16 +194,8 @@ public class Home extends AppCompatActivity {
     }
 
     private void updateDatabase(){
-
-        //Cogemos de nuevo la fecha de hoy
-        SimpleDateFormat objSDF = new SimpleDateFormat("yyyy-MM-dd");
-        Date fecha = new Date();
-        String hoy = objSDF.format(fecha);
-
         //Actualizamos el valor de vasos en la base de datos
-        Map<String, Object> datos = new HashMap<>();
-        datos.put("vasos", progr_water);
-        usuario.collection("historial").document(hoy).set(datos, SetOptions.merge());
+        historial.update("vasos", progr_water);
     }
 
     @Override
