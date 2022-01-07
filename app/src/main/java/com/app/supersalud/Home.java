@@ -83,16 +83,6 @@ public class Home extends AppCompatActivity {
         //Si no existe el usuario lo crea
         creaCargaUsuario(nombre);
 
-        //Creamos la fecha de hoy
-        SimpleDateFormat objSDF = new SimpleDateFormat("yyyy-MM-dd");
-        Date fecha = new Date();
-        String hoy = objSDF.format(fecha);
-
-        historial = usuario.collection("historial").document(hoy);
-
-        //Se cargan los valores del usuario en variables de la clase y se cambian los datos mostrados
-        creaCargaDatos();
-
         //EN ESTE PUNTO POR ALGUNA RAZON progr_water LO TRATA COMO 0, TENERLO MUY EN CUENTA
     }
 
@@ -125,6 +115,16 @@ public class Home extends AppCompatActivity {
                         //Se introducen estos datos en la base de datos
                         usuario.set(datos);
                     }
+
+                    //Creamos la fecha de hoy
+                    SimpleDateFormat objSDF = new SimpleDateFormat("yyyy-MM-dd");
+                    Date fecha = new Date();
+                    String hoy = objSDF.format(fecha);
+
+                    historial = usuario.collection("historial").document(hoy);
+
+                    //Se cargan los valores del usuario en variables de la clase y se cambian los datos mostrados
+                    creaCargaDatos();
 
                 } else {
                     //Gestión de errores para debugging
@@ -185,12 +185,16 @@ public class Home extends AppCompatActivity {
 
     private void updateDataShown(){
         //Calculamos el porcentaje de agua bebido frente al objetivo
-        int porc = (progr_water*100)/objetivo_vasos;
+        int porc = 0;
+        if (progr_water > 0 && objetivo_vasos > 0) {
+            porc = (progr_water*100)/objetivo_vasos;
+        }
+        porc = Math.min(porc, 100);
 
         //Ponemos el valor que tengan los datos
-        txProg.setText((porc>100 ? 100 : porc) +"%");
+        txProg.setText((porc) +"%");
         txVasos.setText(progr_water+"");
-        progressBar.setProgress(porc>100 ? 100 : porc);
+        progressBar.setProgress(porc);
     }
 
     private void updateDatabase(){
@@ -209,6 +213,8 @@ public class Home extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()) {
             case R.id.cerrar_sesion:
+                usuario = null;
+                historial = null;
                 Intent intent = new Intent(this, MainActivity.class);
                 this.startActivity(intent);
                 return true;
