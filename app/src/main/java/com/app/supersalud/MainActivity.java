@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -74,6 +75,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button anonimoButton = findViewById(R.id.bAnonimo);
+
+        anonimoButton.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                UsuarioSingleton.getInstance();
+                goHome();
+            }
+        });
+
+
 
         myActivityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -120,7 +132,6 @@ public class MainActivity extends AppCompatActivity {
     // [START auth_with_google]
     private void firebaseAuthWithGoogle(String idToken) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-        tx.setText("Patata");
 
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -130,8 +141,10 @@ public class MainActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Toast.makeText(getApplicationContext(), "signInWithCredential:success", Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
-                            goHome(user);
-                            //updateUI(user);
+                            String email = user.getEmail();
+                            String nombre = user.getDisplayName();
+                            UsuarioSingleton.getInstance(email, nombre);
+                            goHome();
                         } else {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(getApplicationContext(), "signInWithCredential:failure", Toast.LENGTH_SHORT).show();
@@ -148,12 +161,9 @@ public class MainActivity extends AppCompatActivity {
     }
      **/
 
-    private void goHome(FirebaseUser user) {
-        Bundle b = new Bundle();
-        b.putString("email", user.getEmail());
-        b.putString("nombre", user.getDisplayName());
+    private void goHome() {
+        tx.setText("Patata");
         Intent intent = new Intent(this, Home.class);
-        intent.putExtras(b);
         startActivity(intent);
     }
 

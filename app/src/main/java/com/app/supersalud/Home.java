@@ -52,12 +52,6 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        //Sacas del intent los datos del usuario y los guardas en variables locales
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-        email = bundle.getString("email");
-        nombre = bundle.getString("nombre");
-
         //Pones el nombre del usuario arriba de la página
         TextView tx = findViewById(R.id.textView2);
         tx.setText(nombre);
@@ -79,6 +73,7 @@ public class Home extends AppCompatActivity {
         super.onStart();
         //Guardas la referencia en la bd al usuario registrado en otra variable de clase
         usuario = UsuarioSingleton.getInstance(email, nombre).usuario;
+        //usuario = db.collection("usuarios").document(email);
 
         //Si no existe el usuario lo crea
         creaCargaUsuario(nombre);
@@ -224,10 +219,10 @@ public class Home extends AppCompatActivity {
     }
 
     public void goObjectives (View view){
-        Bundle b = new Bundle();
-        b.putString("email", usuario.getId());
+        //Bundle b = new Bundle();
+        //b.putString("email", usuario.getId());
         Intent intent = new Intent(this, Objetivos.class);
-        intent.putExtras(b);
+        //intent.putExtras(b);
         startActivity(intent);
     }
 }

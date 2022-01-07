@@ -12,7 +12,7 @@ public class UsuarioSingleton {
 
     private UsuarioSingleton(String e, String n){
         FirebaseFirestore db = DatabaseSingleton.getInstance().database;
-        usuario = db.collection("usuarios").document(email);
+        usuario = db.collection("usuarios").document(e);
         email = e;
         nombre = n;
     }
