@@ -68,7 +68,7 @@ public class Home extends AppCompatActivity {
         progressBar = findViewById(R.id.progress_bar_water);
 
         //Guardas una conexión a la base de datos en una variable de la clase
-        db = FirebaseFirestore.getInstance();
+        db = DatabaseSingleton.getInstance().database;
 
     }
 
@@ -78,7 +78,7 @@ public class Home extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         //Guardas la referencia en la bd al usuario registrado en otra variable de clase
-        usuario = db.collection("usuarios").document(email);
+        usuario = UsuarioSingleton.getInstance(email, nombre).usuario;
 
         //Si no existe el usuario lo crea
         creaCargaUsuario(nombre);
