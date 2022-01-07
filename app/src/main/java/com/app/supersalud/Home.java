@@ -32,15 +32,10 @@ import java.util.Map;
 
 public class Home extends AppCompatActivity {
 
-    //private static final String TAG = "GoogleActivity";
-    private FirebaseFirestore db;
-
     protected int progr_water, progr_steps;
 
     private int objetivo_pasos;
     private int objetivo_vasos;
-
-    private String email, nombre;
 
     private DocumentReference usuario, historial;
 
@@ -57,9 +52,6 @@ public class Home extends AppCompatActivity {
         txVasos = findViewById(R.id.num_vasos);
         progressBar = findViewById(R.id.progress_bar_water);
 
-        //Guardas una conexión a la base de datos en una variable de la clase
-        db = DatabaseSingleton.getInstance().database;
-
     }
 
 
@@ -69,7 +61,7 @@ public class Home extends AppCompatActivity {
         super.onStart();
         //Guardas la referencia en la bd al usuario registrado en otra variable de clase
         usuario = UsuarioSingleton.getInstance().usuario;
-        nombre = UsuarioSingleton.getInstance().nombre;
+        String nombre = UsuarioSingleton.getInstance().nombre;
 
         //Pones el nombre del usuario arriba de la página
         TextView tx = findViewById(R.id.textView2);
@@ -196,6 +188,8 @@ public class Home extends AppCompatActivity {
         historial.update("vasos", progr_water);
     }
 
+    ////// METODOS PARA CONFIGURAR EL MENU /////////
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -209,20 +203,23 @@ public class Home extends AppCompatActivity {
             case R.id.cerrar_sesion:
                 usuario = null;
                 historial = null;
-                UsuarioSingleton.cerrarSesion();
-                Intent intent = new Intent(this, MainActivity.class);
-                this.startActivity(intent);
+                cerrarSesion();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+    //////// FIN METODOS PARA CONFIGURAR EL MENU //////////
+
+    private void cerrarSesion() {
+        UsuarioSingleton.cerrarSesion();
+        Intent intent = new Intent(this, MainActivity.class);
+        this.startActivity(intent);
+    }
+
     public void goObjectives (View view){
-        //Bundle b = new Bundle();
-        //b.putString("email", usuario.getId());
         Intent intent = new Intent(this, Objetivos.class);
-        //intent.putExtras(b);
         startActivity(intent);
     }
 }

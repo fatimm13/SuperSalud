@@ -34,8 +34,6 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class MainActivity extends AppCompatActivity {
 
-    // private static final int GOOGLE_SIGN_IN = 9001;
-
     private FirebaseAuth mAuth;
 
     private GoogleSignInClient mGoogleSignInClient;
@@ -61,9 +59,7 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         googleButton = (SignInButton) findViewById(R.id.sign_in_button);
-
         googleButton.setOnClickListener(new View.OnClickListener() {
-
             public void onClick(View v) {
                 tx.setText("Boton pulsado inicio");
 
@@ -76,16 +72,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Button anonimoButton = findViewById(R.id.bAnonimo);
-
         anonimoButton.setOnClickListener(new View.OnClickListener() {
-
             public void onClick(View v) {
                 UsuarioSingleton.getInstance();
                 goHome();
             }
         });
-
-
 
         myActivityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -117,18 +109,6 @@ public class MainActivity extends AppCompatActivity {
         tx.setText("Hola");
     }
 
-/**
-    @Override
-    protected void onStart() {
-        super.onStart();
-        // Check for existing Google Sign In account, if the user is already signed in
-        // the GoogleSignInAccount will be non-null.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        //GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        //updateUI(account);
-    }
-**/
-
     // [START auth_with_google]
     private void firebaseAuthWithGoogle(String idToken) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
@@ -154,12 +134,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    /**
-
-    private void updateUI(FirebaseUser user) {
-
-    }
-     **/
 
     private void goHome() {
         tx.setText("Patata");
