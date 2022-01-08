@@ -259,6 +259,7 @@ public class Home extends AppCompatActivity implements SensorEventListener {
 
     private void cerrarSesion() {
         UsuarioSingleton.cerrarSesion();
+        HistorialSingleton.cerrarSesion();
         Intent intent = new Intent(this, MainActivity.class);
         this.startActivity(intent);
     }

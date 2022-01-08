@@ -34,4 +34,8 @@ public class HistorialSingleton {
         return objSDF.format(fecha);
     }
 
+    public static void cerrarSesion() {
+        instance = null;
+    }
+
 }
