@@ -118,12 +118,15 @@ public class Home extends AppCompatActivity implements SensorEventListener {
                         usuario.set(datos);
                     }
 
+                    /**
                     //Creamos la fecha de hoy
                     SimpleDateFormat objSDF = new SimpleDateFormat("yyyy-MM-dd");
                     Date fecha = new Date();
                     String hoy = objSDF.format(fecha);
 
                     historial = usuario.collection("historial").document(hoy);
+                     **/
+                    historial = HistorialSingleton.getInstance().historial;
 
                     //Se cargan los valores del usuario en variables de la clase y se cambian los datos mostrados
                     creaCargaDatos();
@@ -216,7 +219,7 @@ public class Home extends AppCompatActivity implements SensorEventListener {
 
         //Ponemos el valor que tengan los datos
         txProgSteps.setText(porc +"%");
-        txPasos.setText(progr_steps+"");
+        txPasos.setText(progr_steps+" " + getResources().getString(R.string.steps));
         progressBarSteps.setProgress(porc, true);
     }
 

@@ -32,7 +32,6 @@
             android:theme="@style/Theme.SuperSalud.NoActionBar" />
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_inicio_sesion"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
