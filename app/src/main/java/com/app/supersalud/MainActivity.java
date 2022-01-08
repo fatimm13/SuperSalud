@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         UsuarioSingleton.cerrarSesion();
         HistorialSingleton.cerrarSesion();
+        PastillasSingleton.cerrarSesion();
     }
 
     // [START auth_with_google]

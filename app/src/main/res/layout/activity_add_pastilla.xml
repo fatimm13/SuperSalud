@@ -40,13 +40,14 @@
             android:text="@string/num_pills"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@+id/tx_tiempoDosis"
-            app:layout_constraintTop_toBottomOf="@+id/in_timeDoses" />
+            app:layout_constraintTop_toBottomOf="@+id/in_dayAmount" />
 
         <Button
             android:id="@+id/button_newPill"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="72dp"
+            android:onClick="crearPastilla"
             android:text="@string/add_pill"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -64,7 +65,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tx_nombreMedicacion" />
 
         <EditText
-            android:id="@+id/in_timeDoses"
+            android:id="@+id/in_dayAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -74,7 +75,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tx_tiempoDosis" />
 
         <EditText
-            android:id="@+id/in_quantPillsAsked"
+            android:id="@+id/in_quantPillsDaily"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -89,8 +90,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:text="Repetición por días"
-            app:layout_constraintStart_toStartOf="@+id/in_quantPillsAsked"
-            app:layout_constraintTop_toBottomOf="@+id/in_quantPillsAsked"
+            app:layout_constraintStart_toStartOf="@+id/in_quantPillsDaily"
+            app:layout_constraintTop_toBottomOf="@+id/in_quantPillsDaily"
             android:onClick="clickSwitch"
             tools:ignore="UseSwitchCompatOrMaterialXml" />
 
