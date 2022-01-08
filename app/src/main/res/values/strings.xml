@@ -22,14 +22,15 @@
     <string name="new_objective">Nuevo objetivo:</string>
     <string name="Actualiza_datos">Actualiza datos</string>
     <string name="Objetivos_actualizados">¡Objetivos actualizados!</string>
+    <string name="Nueva_pastilla">Nueva pastilla</string>
 
 
     <string name="add_vaso">+</string>
     <string name="rem_vaso">-</string>
 
     <string name="name_medication">Nombre medicación: </string>
-    <string name="time_medication">Tiempo entre dosis:</string>
-    <string name="num_pills">Cantidad de pastillas recetadas:</string>
+    <string name="time_medication">Días recetados:</string>
+    <string name="num_pills">Número de pastillas diarias:</string>
     <string name="bought_pills">Cantidad de pastillas compradas:</string>
     <string name="add_pill">Nueva pastilla</string>
 

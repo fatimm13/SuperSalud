@@ -1,101 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".AddPastilla">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 
-    <TextView
-        android:id="@+id/tx_nombreMedicacion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="60dp"
-        android:text="@string/name_medication"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".AddPastilla">
 
-    <TextView
-        android:id="@+id/tx_tiempoDosis"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="@string/time_medication"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/tx_nombreMedicacion"
-        app:layout_constraintTop_toBottomOf="@+id/in_nombreMed" />
+        <TextView
+            android:id="@+id/tx_nombreMedicacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="60dp"
+            android:text="@string/name_medication"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tx_cantidadPastillas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="@string/num_pills"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/tx_tiempoDosis"
-        app:layout_constraintTop_toBottomOf="@+id/in_timeDoses" />
+        <TextView
+            android:id="@+id/tx_tiempoDosis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="@string/time_medication"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/tx_nombreMedicacion"
+            app:layout_constraintTop_toBottomOf="@+id/in_nombreMed" />
 
-    <TextView
-        android:id="@+id/tx_cantidadPastillasComp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="@string/bought_pills"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/tx_cantidadPastillas"
-        app:layout_constraintTop_toBottomOf="@+id/in_quantPillsAsked" />
+        <TextView
+            android:id="@+id/tx_cantidadPastillas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="@string/num_pills"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/tx_tiempoDosis"
+            app:layout_constraintTop_toBottomOf="@+id/in_timeDoses" />
 
-    <Button
-        android:id="@+id/button_newPill"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="53dp"
-        android:text="@string/add_pill"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/in_quantPillsBought"
-        app:layout_constraintVertical_bias="0.0" />
+        <Button
+            android:id="@+id/button_newPill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="72dp"
+            android:text="@string/add_pill"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkBox1" />
 
-    <EditText
-        android:id="@+id/in_nombreMed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/tx_nombreMedicacion"
-        app:layout_constraintTop_toBottomOf="@+id/tx_nombreMedicacion" />
+        <EditText
+            android:id="@+id/in_nombreMed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toStartOf="@+id/tx_nombreMedicacion"
+            app:layout_constraintTop_toBottomOf="@+id/tx_nombreMedicacion" />
 
-    <EditText
-        android:id="@+id/in_timeDoses"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/tx_tiempoDosis"
-        app:layout_constraintTop_toBottomOf="@+id/tx_tiempoDosis" />
+        <EditText
+            android:id="@+id/in_timeDoses"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:inputType="number"
+            app:layout_constraintStart_toStartOf="@+id/tx_tiempoDosis"
+            app:layout_constraintTop_toBottomOf="@+id/tx_tiempoDosis" />
 
-    <EditText
-        android:id="@+id/in_quantPillsAsked"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/tx_cantidadPastillas"
-        app:layout_constraintTop_toBottomOf="@+id/tx_cantidadPastillas" />
+        <EditText
+            android:id="@+id/in_quantPillsAsked"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:inputType="number"
+            app:layout_constraintStart_toStartOf="@+id/tx_cantidadPastillas"
+            app:layout_constraintTop_toBottomOf="@+id/tx_cantidadPastillas" />
 
-    <EditText
-        android:id="@+id/in_quantPillsBought"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/tx_cantidadPastillasComp"
-        app:layout_constraintTop_toBottomOf="@+id/tx_cantidadPastillasComp" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Switch
+            android:id="@+id/switch1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Repetición por días"
+            app:layout_constraintStart_toStartOf="@+id/in_quantPillsAsked"
+            app:layout_constraintTop_toBottomOf="@+id/in_quantPillsAsked"
+            android:onClick="clickSwitch"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+        <CheckBox
+            android:id="@+id/checkBox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="L"
+            android:textAlignment="viewStart"
+            android:textColor="#000000"
+            app:layout_constraintStart_toStartOf="@+id/switch1"
+            app:layout_constraintTop_toBottomOf="@+id/switch1" />
+
+
+        <CheckBox
+            android:id="@+id/checkBox2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="M"
+            android:textAlignment="viewStart"
+            android:textColor="#000000"
+            app:layout_constraintStart_toEndOf="@+id/checkBox1"
+            app:layout_constraintTop_toTopOf="@+id/checkBox1" />
+
+        <CheckBox
+            android:id="@+id/checkBox3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="X"
+            android:textAlignment="viewStart"
+            android:textColor="#000000"
+            app:layout_constraintStart_toEndOf="@+id/checkBox2"
+            app:layout_constraintTop_toTopOf="@+id/checkBox1" />
+
+        <CheckBox
+            android:id="@+id/checkBox4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="J"
+            android:textAlignment="viewStart"
+            android:textColor="#000000"
+            app:layout_constraintStart_toEndOf="@+id/checkBox3"
+            app:layout_constraintTop_toTopOf="@+id/checkBox1" />
+
+        <CheckBox
+            android:id="@+id/checkBox5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="V"
+            android:textAlignment="viewStart"
+            android:textColor="#000000"
+            app:layout_constraintStart_toEndOf="@+id/checkBox4"
+            app:layout_constraintTop_toTopOf="@+id/checkBox1" />
+
+        <CheckBox
+            android:id="@+id/checkBox6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="S"
+            android:textAlignment="viewStart"
+            android:textColor="#000000"
+            app:layout_constraintStart_toEndOf="@+id/checkBox5"
+            app:layout_constraintTop_toTopOf="@+id/checkBox1" />
+
+        <CheckBox
+            android:id="@+id/checkBox7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="D"
+            android:textAlignment="viewStart"
+            app:layout_constraintStart_toEndOf="@+id/checkBox6"
+            app:layout_constraintTop_toTopOf="@+id/checkBox1"
+            android:textColor="#000000" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="checkBox1,checkBox2,checkBox3,checkBox3,checkBox4,checkBox5,checkBox6,checkBox7" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
