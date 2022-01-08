@@ -222,7 +222,12 @@ public class Home extends AppCompatActivity implements SensorEventListener {
 
     private void updateStepsDB(){
         //Actualizamos el valor de vasos en la base de datos
-        historial.update("pasos", progr_steps);
+        if (historial != null){
+            historial.update("pasos", progr_steps);
+        } else{
+            Toast.makeText(getApplicationContext(), "El historial es null", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     ////// METODOS PARA CONFIGURAR EL MENU /////////
