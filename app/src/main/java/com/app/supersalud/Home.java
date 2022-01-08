@@ -3,7 +3,12 @@ package com.app.supersalud;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,7 +28,16 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Home extends AppCompatActivity {
+public class Home extends AppCompatActivity implements SensorEventListener {
+
+    ///////////////////////////////////////////////
+    private SensorManager sensorManager;
+    private boolean running = false;
+    //private float totalSteps = 0f;
+    //private float previousTotalSteps = 0f;
+
+    //////////////////////////////////////////////
+
 
     protected int progr_water, progr_steps;
 
@@ -39,6 +53,8 @@ public class Home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
         //Buscamos el texto del porcentaje, del numero de vasos y la barra de progresos.
         txProgWater = findViewById(R.id.text_progress_water);
@@ -144,7 +160,8 @@ public class Home extends AppCompatActivity {
                         //Guardamos estos datos en la base de datos
                         historial.set(datos);
                     }
-                    updateDataShown();
+                    updateDataShownWater();
+                    updateDataShownSteps();
                 } else {
                     //Gestion de errores
                     Toast.makeText(getApplicationContext(), "Fallo con " + task.getException(), Toast.LENGTH_SHORT).show();
@@ -156,19 +173,19 @@ public class Home extends AppCompatActivity {
 
     public void incrementProgr (View v){
         progr_water+=1;
-        updateDatabase();
-        updateDataShown();
+        updateWaterDB();
+        updateDataShownWater();
 
     }
     public void redProgr (View v){
         if(progr_water> 0) {
             progr_water-=1;
         }
-        updateDatabase();
-        updateDataShown();
+        updateWaterDB();
+        updateDataShownWater();
     }
 
-    private void updateDataShown(){
+    private void updateDataShownWater(){
         //Calculamos el porcentaje de agua bebido frente al objetivo
         int porc = 0;
         if (progr_water > 0 && objetivo_vasos > 0) {
@@ -177,14 +194,35 @@ public class Home extends AppCompatActivity {
         porc = Math.min(porc, 100);
 
         //Ponemos el valor que tengan los datos
-        txProgWater.setText((porc) +"%");
+        txProgWater.setText(porc +"%");
         txVasos.setText(progr_water+"");
-        progressBarWater.setProgress(porc);
+        progressBarWater.setProgress(porc, true);
     }
 
-    private void updateDatabase(){
+    private void updateWaterDB(){
         //Actualizamos el valor de vasos en la base de datos
         historial.update("vasos", progr_water);
+    }
+
+    //// Pasos
+
+    private void updateDataShownSteps(){
+        //Calculamos el porcentaje de pasos dados frente al objetivo
+        int porc = 0;
+        if (progr_steps > 0 && objetivo_pasos > 0) {
+            porc = (progr_steps*100)/objetivo_pasos;
+        }
+        porc = Math.min(porc, 100);
+
+        //Ponemos el valor que tengan los datos
+        txProgSteps.setText(porc +"%");
+        txPasos.setText(progr_steps+"");
+        progressBarSteps.setProgress(porc, true);
+    }
+
+    private void updateStepsDB(){
+        //Actualizamos el valor de vasos en la base de datos
+        historial.update("pasos", progr_steps);
     }
 
     ////// METODOS PARA CONFIGURAR EL MENU /////////
@@ -226,25 +264,40 @@ public class Home extends AppCompatActivity {
         Intent intent = new Intent(this, Pastillero.class);
         startActivity(intent);
     }
+
+    ////////////////////////// CUENTAPASOS //////////////////////////////////////////////
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        running = true;     // TODO: maybe esto hace que no se ejecute en segundo plano??
+        Sensor stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+        if (stepSensor == null) {
+            Toast.makeText(getApplicationContext(), "No sensor detected on this device", Toast.LENGTH_SHORT).show();
+        } else {
+            sensorManager.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_UI);
+        }
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        if (running && event != null) {
+            /**
+            totalSteps = event.values[0];
+            int currentSteps = (int) totalSteps - (int) previousTotalSteps;
+            txPasos.setText(currentSteps);
+            progressBarSteps.setProgress(currentSteps, true);
+             **/
+            progr_steps = (int) event.values[0];
+            updateDataShownSteps();
+            updateStepsDB();
+        }
+
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
 }
-
-
-
-/**
-
- // Para guardar datos o actualizar si ya existia (Tendremos un documento por usuario, email es el id):
- db.collection("users").document(email).set(HashMapOf(
-    "dato1" to dato1TextView.text.toString(),
-    "dato2" to dato2TextView.text.toString(),
- ));
-
- // Para hacer un get (it es un documento dentro de la bd):
- db.collection("users").document(email).get().addOnSuccessListener {
-    dato1TextView.setText(it.get("dato1") as String)
- }
-
- // Para borrar
- db.collection("users").document(email).delete();
-
-
- **/

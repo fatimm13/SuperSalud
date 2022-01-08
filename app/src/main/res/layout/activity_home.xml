@@ -8,14 +8,14 @@
 
     <TextView
         android:id="@+id/num_pasos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="TextView"
+        android:layout_width="68dp"
+        android:layout_height="29dp"
+        android:text="0"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.733"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tx_numPasos" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/progress_bar_steps"
+        app:layout_constraintTop_toTopOf="@+id/tx_numPasos" />
 
     <TextView
         android:id="@+id/textView2"
@@ -51,28 +51,30 @@
         app:layout_constraintEnd_toEndOf="@+id/progress_bar_water"
         app:layout_constraintStart_toStartOf="@+id/progress_bar_water"
         app:layout_constraintTop_toTopOf="@+id/progress_bar_water"
-        tools:text="60%" />
+        tools:text="0%" />
 
 
-    <Button
+    <ImageButton
         android:id="@+id/button_rem_glass"
         android:layout_width="40dp"
         android:layout_height="45dp"
         android:layout_marginTop="4dp"
+        android:backgroundTint="@color/teal_200"
         android:onClick="redProgr"
-        android:text="@string/rem_vaso"
+        android:src="@drawable/ic_remove"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.177"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progress_bar_water" />
 
-    <Button
+    <ImageButton
         android:id="@+id/button_add_glass"
         android:layout_width="40dp"
         android:layout_height="45dp"
         android:layout_marginTop="4dp"
+        android:backgroundTint="@color/teal_200"
         android:onClick="incrementProgr"
-        android:text="@string/add_vaso"
+        android:src="@drawable/ic_add"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.393"
         app:layout_constraintStart_toStartOf="parent"
@@ -93,13 +95,13 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toEndOf="@+id/progress_bar_water"
         app:layout_constraintTop_toBottomOf="@+id/divider"
-        tools:progress="60" />
+        tools:progress="0" />
 
     <TextView
         android:id="@+id/text_progress_steps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="60%"
+        android:text="0%"
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/progress_bar_steps"
@@ -156,14 +158,14 @@
 
     <TextView
         android:id="@+id/tx_numPasos"
-        android:layout_width="102dp"
-        android:layout_height="31dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="@string/steps"
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/progress_bar_steps"
-        app:layout_constraintHorizontal_bias="0.388"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/progress_bar_steps"
         app:layout_constraintTop_toBottomOf="@+id/progress_bar_steps" />
 
@@ -199,6 +201,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="0"
+        android:textSize="20sp"
         android:textColor="#000000"
         app:layout_constraintEnd_toStartOf="@+id/button_add_glass"
         app:layout_constraintHorizontal_bias="0.468"

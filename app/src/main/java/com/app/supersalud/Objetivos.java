@@ -73,11 +73,15 @@ public class Objetivos extends AppCompatActivity {
 
         updateButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                int objetivo_vasos = Integer.parseInt(txObjVasos.getText().toString());
-                int objetivo_pasos = Integer.parseInt(txObjPasos.getText().toString());
-                usuario.update("objetivo_vasos", objetivo_vasos);
-                usuario.update("objetivo_pasos", objetivo_pasos);
-                Toast.makeText(getApplicationContext(),  R.string.Objetivos_actualizados, Toast.LENGTH_SHORT).show();
+                try {
+                    int objetivo_vasos = (int) Float.parseFloat(txObjVasos.getText().toString());
+                    int objetivo_pasos = (int) Float.parseFloat(txObjPasos.getText().toString());
+                    usuario.update("objetivo_vasos", objetivo_vasos);
+                    usuario.update("objetivo_pasos", objetivo_pasos);
+                    Toast.makeText(getApplicationContext(), R.string.Objetivos_actualizados, Toast.LENGTH_SHORT).show();
+                } catch(Exception e) {
+                    Toast.makeText(getApplicationContext(),"Introduzca bien los datos", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

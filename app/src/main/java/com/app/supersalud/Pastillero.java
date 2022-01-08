@@ -23,6 +23,7 @@ public class Pastillero extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         binding = ActivityPastilleroBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
