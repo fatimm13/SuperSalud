@@ -21,6 +21,7 @@ import org.w3c.dom.Document;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -30,7 +31,8 @@ import java.util.Map;
 
 public class AddPastilla extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
-    private EditText txNombre, txDias, txVeces;
+    private EditText txDias;
+    private EditText txNombre, txVeces;
     private Switch sw;
     private CheckBox lunes, martes, miercoles, jueves, viernes, sabado, domingo;
     private Date fecha;
@@ -43,7 +45,7 @@ public class AddPastilla extends AppCompatActivity implements DatePickerDialog.O
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         txNombre = findViewById(R.id.in_nombreMed);
-        txDias = findViewById(R.id.in_dayAmount);
+        //txDias = findViewById(R.id.in_dayAmount);
         txVeces = findViewById(R.id.in_quantPillsDaily);
         sw = findViewById(R.id.switch1);
         lunes = findViewById(R.id.cL);
@@ -65,7 +67,7 @@ public class AddPastilla extends AppCompatActivity implements DatePickerDialog.O
 
 
         txNombre.setText("");
-        txDias.setText("1");
+        //txDias.setText("1");
         txVeces.setText("1");
 
         txFecha.setText("Seleccione fecha");
@@ -114,18 +116,22 @@ public class AddPastilla extends AppCompatActivity implements DatePickerDialog.O
         try{
             String nombre = txNombre.getText().toString();
             //String fecha = PastillasSingleton.getInstance().fecha;
-            int dias = (int) Float.parseFloat(txDias.getText().toString());;
+            //int dias = (int) Float.parseFloat(txDias.getText().toString());;
             int veces = (int) Float.parseFloat(txVeces.getText().toString());;
 
             Map<String, Object> datos = new HashMap<>();
 
             datos.put("nombre", nombre);
-            datos.put("num_dias", dias);
+            //datos.put("num_dias", dias);
             datos.put("veces_dia", veces);
             datos.put("fecha_inicio", new Date());
             datos.put("fecha_fin", fecha);
 
-            List<String> rep = Arrays.asList();
+
+
+            List<String> rep;
+            rep= new ArrayList<>();
+            //Arrays.asList();
             if (sw.isChecked()) {
                 if (lunes.isChecked()) { rep.add("lunes"); }
                 if (martes.isChecked()) { rep.add("martes"); }

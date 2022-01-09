@@ -23,8 +23,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -79,7 +77,7 @@ public class Home extends AppCompatActivity implements SensorEventListener {
         String nombre = UsuarioSingleton.getInstance().nombre;
 
         //Pones el nombre del usuario arriba de la página
-        TextView tx = findViewById(R.id.textView2);
+        TextView tx = findViewById(R.id.tx_vecesMedi);
         tx.setText(nombre);
         //usuario = db.collection("usuarios").document(email);
 

@@ -18,29 +18,21 @@
             android:layout_marginStart="40dp"
             android:layout_marginTop="36dp"
             android:text="@string/name_medication"
+            android:textColor="#000000"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tx_tiempoDosis"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:text="@string/time_medication"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@+id/tx_nombreMedicacion"
-            app:layout_constraintTop_toBottomOf="@+id/in_nombreMed" />
-
-        <TextView
             android:id="@+id/tx_cantidadPastillas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="28dp"
             android:text="@string/num_pills"
+            android:textColor="#000000"
             android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@+id/tx_tiempoDosis"
-            app:layout_constraintTop_toBottomOf="@+id/in_dayAmount" />
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
         <Button
             android:id="@+id/button_newPill"
@@ -65,16 +57,6 @@
             app:layout_constraintTop_toBottomOf="@+id/tx_nombreMedicacion" />
 
         <EditText
-            android:id="@+id/in_dayAmount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:ems="10"
-            android:inputType="number"
-            app:layout_constraintStart_toStartOf="@+id/tx_tiempoDosis"
-            app:layout_constraintTop_toBottomOf="@+id/tx_tiempoDosis" />
-
-        <EditText
             android:id="@+id/in_quantPillsDaily"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -88,11 +70,11 @@
             android:id="@+id/switch1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="28dp"
+            android:onClick="clickSwitch"
             android:text="Repetición por días"
             app:layout_constraintStart_toStartOf="@+id/in_quantPillsDaily"
             app:layout_constraintTop_toBottomOf="@+id/in_quantPillsDaily"
-            android:onClick="clickSwitch"
             tools:ignore="UseSwitchCompatOrMaterialXml" />
 
         <CheckBox
@@ -177,25 +159,30 @@
             android:id="@+id/bFechaInicio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Fecha Inicio"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.942"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.381" />
+            android:layout_marginTop="28dp"
+            android:text="@string/Fin_del_tratamiento"
+            app:layout_constraintStart_toStartOf="@+id/in_nombreMed"
+            app:layout_constraintTop_toBottomOf="@+id/in_nombreMed" />
 
         <TextView
             android:id="@+id/tFecha"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:text="TextView"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.9"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.301" />
+            app:layout_constraintBottom_toBottomOf="@+id/textView"
+            app:layout_constraintStart_toEndOf="@+id/textView" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/Fecha_seleccionada"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/bFechaInicio"
+            app:layout_constraintTop_toBottomOf="@+id/bFechaInicio" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
