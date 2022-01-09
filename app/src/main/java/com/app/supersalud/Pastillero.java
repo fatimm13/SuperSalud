@@ -88,7 +88,7 @@ public class Pastillero extends AppCompatActivity {
                     //ArrayAdapter<Pastilla> adaptador = new ArrayAdapter<>(Pastillero.this,R.layout.adapter_view_layout, (ArrayList<Pastilla>) listaPastillas);
                     listaView.setAdapter(adaptador);
 
-                    Toast.makeText(getApplicationContext(), listaPastillas.get(0).getRepeticiones().get(0), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), listaPastillas.get(0).getRepeticiones().get(0), Toast.LENGTH_SHORT).show();
 
 
                 } else {

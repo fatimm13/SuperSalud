@@ -133,13 +133,13 @@ public class AddPastilla extends AppCompatActivity implements DatePickerDialog.O
             rep= new ArrayList<>();
             //Arrays.asList();
             if (sw.isChecked()) {
-                if (lunes.isChecked()) { rep.add("lunes"); }
-                if (martes.isChecked()) { rep.add("martes"); }
-                if (miercoles.isChecked()) { rep.add("miercoles"); }
-                if (jueves.isChecked()) { rep.add("jueves"); }
-                if (viernes.isChecked()) { rep.add("viernes"); }
-                if (sabado.isChecked()) { rep.add("sabado"); }
-                if (domingo.isChecked()) { rep.add("domingo"); }
+                if (lunes.isChecked()) { rep.add("Mon"); }
+                if (martes.isChecked()) { rep.add("Tue"); }
+                if (miercoles.isChecked()) { rep.add("Wed"); }
+                if (jueves.isChecked()) { rep.add("Thu"); }
+                if (viernes.isChecked()) { rep.add("Fri"); }
+                if (sabado.isChecked()) { rep.add("Sat"); }
+                if (domingo.isChecked()) { rep.add("Sun"); }
             }
             datos.put("repeticiones", rep);
 

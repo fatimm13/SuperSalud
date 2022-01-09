@@ -1,54 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:weightSum="100">
+    android:layout_height="wrap_content">
 
+    <TextView
+        android:id="@+id/tx_nombreMedi"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:text="TextView1"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="66.6">
-
-        <TextView
-            android:gravity="center"
-            android:text="TextView1"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:id="@+id/tx_nombreMedi"/>
+        android:layout_height="wrap_content">
+        android:weight_sum="100"
 
         <TextView
             android:gravity="center"
             android:text="TextView2"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:id="@+id/tx_vecesMedi"
-            android:layout_below="@+id/tx_nombreMedi"/>
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="33.3">
+            android:id="@+id/tx_fechaMediIni"
+            android:layout_weight="50"/>
 
         <TextView
             android:gravity="center"
             android:text="TextView3"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:id="@+id/tx_fechaMedi"/>
+            android:id="@+id/tx_fechaMediFin"
+            android:layout_weight="50"/>
+    </LinearLayout>
+
+
 
         <TextView
             android:gravity="center"
             android:text="TextView4"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:id="@+id/tx_diasMedi"
-            android:layout_below="@+id/tx_fechaMedi"/>
-    </LinearLayout>
+            android:id="@+id/tx_vecesMedi"/>
+
+        <TextView
+            android:gravity="center"
+            android:text="TextView5"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:id="@+id/tx_diasMedi"/>
 
 </LinearLayout>

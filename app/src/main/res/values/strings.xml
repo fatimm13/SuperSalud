@@ -26,6 +26,11 @@
     <string name="Fin_del_tratamiento">Fin del tratamiento</string>
     <string name="Fecha_seleccionada">Fecha seleccionada:</string>
     <string name="Lista_tratamientos">Tratamientos</string>
+    <string name="Dosis_diarias">Dosis diarias: </string>
+    <string name="Inicio_Tratamiento"> Inicio: </string>
+    <string name="Fin_Tratamiento">Fin: </string>
+    <string name="Indefinido">Indefinido</string>
+    <string name="Todos_los_dias">Todos los días</string>
 
 
     <string name="add_vaso">+</string>
@@ -35,14 +40,4 @@
     <string name="time_medication">Días recetados:</string>
     <string name="num_pills">Número de dosis diarias:</string>
     <string name="add_pill">Nueva pastilla</string>
-
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-
-
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>
