@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         UsuarioSingleton.cerrarSesion();
         HistorialSingleton.cerrarSesion();
+        SingletonMap.getInstance().clear();
         PastillasSingleton.cerrarSesion();
     }
 

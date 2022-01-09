@@ -1,14 +1,16 @@
 <resources>
+
+    <!-- Nombres de las actividades -->
     <string name="app_name">Super Salud</string>
-    <string name="prefs_file">com.app.supersalud.PREFERENCEFILE_KEY</string>
+    <string name="title_activity_inicio_sesion">Inicio de sesion</string>
+    <string name="title_activity_pastillero">Listado de medicacion</string>
+    <string name="title_activity_addPastilla">Añadir medicacion</string>
+    <string name="title_activity_objetivos">Objetivos</string>
 
     <string name="log_out">Cerrar sesion</string>
 
     <string name="pastillero">Pastillero</string>
 
-    <string name="title_activity_inicio_sesion">Inicio de sesion</string>
-    <string name="title_activity_pastillero">Pastillero</string>
-    <string name="title_activity_objetivos">Objetivos</string>
     <string name="desc_pastillero">Listado de medicacion</string>
     <string name="agua">Tu agua hoy</string>
     <string name="water">Agua</string>
@@ -31,10 +33,6 @@
     <string name="Fin_Tratamiento">Fin: </string>
     <string name="Indefinido">Indefinido</string>
     <string name="Todos_los_dias">Todos los días</string>
-
-
-    <string name="add_vaso">+</string>
-    <string name="rem_vaso">-</string>
 
     <string name="name_medication">Nombre medicación: </string>
     <string name="time_medication">Días recetados:</string>
