@@ -47,7 +47,6 @@ public class PastillaListAdapter extends ArrayAdapter<Pastilla> {
 
         StringJoiner agrupar= new StringJoiner(",");
         for (String s:rep) {
-
             agrupar.add(s);
         }
 

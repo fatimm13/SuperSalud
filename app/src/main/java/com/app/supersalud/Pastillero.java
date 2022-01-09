@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
@@ -34,8 +35,7 @@ public class Pastillero extends AppCompatActivity {
     private CollectionReference medicacion;
 
     private ListView listaView;
-    private Context context;
-    private List<Pastilla> listaPastillas;
+    private ArrayList<Pastilla> listaPastillas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,28 +43,33 @@ public class Pastillero extends AppCompatActivity {
         setContentView(R.layout.activity_pastillero);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         listaView = findViewById(R.id.lista_medicina);
-        context = this;
-        listaPastillas = new ArrayList<>();
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         medicacion = (CollectionReference)SingletonMap.getInstance().get(Pastillero.MEDICACION);
         if (medicacion == null) {
             medicacion = UsuarioSingleton.getInstance().usuario.collection("medicacion");
             SingletonMap.getInstance().put(Pastillero.MEDICACION, medicacion);
         }
 
-        creaCargaPastillas();
-
+        cargaPastillas();
     }
 
-    private void creaCargaPastillas() {
+    private void cargaPastillas() {
 
         medicacion.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    Map<String, Object> med;
+                    //Map<String, Object> med;
                     Pastilla pill;
+                    listaPastillas = new ArrayList<>();
                     for (QueryDocumentSnapshot document : task.getResult()) {
+                        pill = document.toObject(Pastilla.class);
+                        /**
                         med = document.getData();
                         Timestamp fecha_fin = (Timestamp) med.get("fecha_fin");
                         Date fecha;
@@ -73,13 +78,17 @@ public class Pastillero extends AppCompatActivity {
                         }else{
                             fecha = null;
                         }
+                         **/
                         //Guardamos los datos de cada medicamento de la lista en una lista local de la clase pastilla para mostrar más facilmente estos datos a continuación
-                        pill=new Pastilla((String) med.get("nombre"), Integer.parseInt(((Long) med.get("veces_dia")).toString()), fecha, (List<String>) med.get("repeticiones"));
+                        //pill=new Pastilla((String) med.get("nombre"), Integer.parseInt(((Long) med.get("veces_dia")).toString()), fecha, (List<String>) med.get("repeticiones"));
                         listaPastillas.add(pill);
 
                     }
-                    PastillaListAdapter adaptador = new PastillaListAdapter(context,R.layout.adapter_view_layout, (ArrayList<Pastilla>) listaPastillas);
+                    PastillaListAdapter adaptador = new PastillaListAdapter(Pastillero.this,R.layout.adapter_view_layout, (ArrayList<Pastilla>) listaPastillas);
+                    //ArrayAdapter<Pastilla> adaptador = new ArrayAdapter<>(Pastillero.this,R.layout.adapter_view_layout, (ArrayList<Pastilla>) listaPastillas);
                     listaView.setAdapter(adaptador);
+
+                    Toast.makeText(getApplicationContext(), listaPastillas.get(0).getRepeticiones().get(0), Toast.LENGTH_SHORT).show();
 
 
                 } else {
@@ -88,7 +97,6 @@ public class Pastillero extends AppCompatActivity {
                 }
             }
         });
-
 
     }
 
