@@ -14,6 +14,7 @@
         android:theme="@style/Theme.SuperSalud" >
         <activity
             android:name=".Pastillero"
+            android:parentActivityName=".Home"
             android:exported="false" />
         <activity
             android:name=".Objetivos"

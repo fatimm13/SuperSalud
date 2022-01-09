@@ -88,8 +88,10 @@ public class Objetivos extends AppCompatActivity {
 
     private void cerrarSesion() {
         UsuarioSingleton.cerrarSesion();
+        HistorialSingleton.cerrarSesion();
         Intent intent = new Intent(this, MainActivity.class);
         this.startActivity(intent);
     }
+
 
 }

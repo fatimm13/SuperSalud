@@ -2,7 +2,6 @@ package com.app.supersalud;
 
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -10,13 +9,13 @@ import java.util.Date;
 public class PastillasSingleton {
     private static PastillasSingleton instance;
 
-    public CollectionReference pastillas;
+    public CollectionReference medicacion;
     public String fecha;
 
     private PastillasSingleton() {
         DocumentReference usuario = UsuarioSingleton.getInstance().usuario;
         fecha = getDiaActual();
-        pastillas = usuario.collection("pastillas");
+        medicacion = usuario.collection("pastillas");
     }
 
     public static PastillasSingleton getInstance() {
