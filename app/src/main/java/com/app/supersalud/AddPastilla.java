@@ -123,14 +123,15 @@ public class AddPastilla extends AppCompatActivity implements DatePickerDialog.O
 
         try{
             String nombre = txNombre.getText().toString();
-            //String fecha = PastillasSingleton.getInstance().fecha;
-            //int dias = (int) Float.parseFloat(txDias.getText().toString());;
-            int veces = (int) Float.parseFloat(txVeces.getText().toString());;
+            int veces = (int) Float.parseFloat(txVeces.getText().toString());
+
+            if(nombre == null || nombre.equals("") || veces <=0){
+                throw new Exception();
+            }
 
             Map<String, Object> datos = new HashMap<>();
 
             datos.put("nombre", nombre);
-            //datos.put("num_dias", dias);
             datos.put("veces_dia", veces);
             datos.put("fecha_inicio", new Date());
             datos.put("fecha_fin", fecha);
@@ -139,7 +140,6 @@ public class AddPastilla extends AppCompatActivity implements DatePickerDialog.O
 
             List<String> rep;
             rep= new ArrayList<>();
-            //Arrays.asList();
             if (sw.isChecked()) {
                 if (lunes.isChecked()) { rep.add("Mon"); }
                 if (martes.isChecked()) { rep.add("Tue"); }
@@ -158,14 +158,13 @@ public class AddPastilla extends AppCompatActivity implements DatePickerDialog.O
                 //SingletonMap.getInstance().put(Pastillero.MEDICACION, medicacion);
                 goPastillero();
             }
-
             medicacion.document().set(datos);
 
             goPastillero();
 
 
         } catch(Exception e) {
-            Toast.makeText(getApplicationContext(),"Introduzca bien los datos " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.Introduzca_bien_los_datos), Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -6,51 +6,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Pastillero">
+    tools:context=".Pastillero"
+    android:background="@color/fondo">
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addPill"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="40dp"
         android:clickable="true"
         android:onClick="goNewPill"
-        app:layout_constraintBottom_toBottomOf="@+id/textView6"
-        app:layout_constraintStart_toEndOf="@+id/textView6"
-        app:layout_constraintTop_toTopOf="@+id/textView6"
-        app:layout_constraintVertical_bias="0.708"
-        app:srcCompat="@android:drawable/ic_input_add" />
-
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="16dp"
-        android:background="?android:attr/listDivider"
+        android:backgroundTint="@color/logoLight"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:srcCompat="@android:drawable/ic_input_add" />
 
     <ListView
         android:id="@+id/lista_medicina"
         android:layout_width="match_parent"
-        android:layout_height="520dp"
-        android:layout_marginTop="3dp"
+        android:layout_height="match_parent"
+        android:dividerHeight="10dp"
+        android:foregroundTint="@color/logoLight"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider"></ListView>
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:text="@string/Lista_tratamientos"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"></ListView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

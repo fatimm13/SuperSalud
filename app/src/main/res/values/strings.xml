@@ -42,6 +42,8 @@
     <string name="Objetivo_conseguido">¡Objetivo conseguido!</string>
     <string name="Texto_objetivo_agua">Has alcanzado tu objetivo de vasos para hoy, ¡Sigue así!</string>
     <string name="Texto_objetivo_pasos">Has alcanzado tu objetivo de pasos para hoy, ¡Sigue así!</string>
+    <string name="Introduzca_bien_los_datos">Introduzca bien los datos</string>
+    <string name="Objetivos_positivos">Los objetivos deben ser mayores que 0</string>
 
     <string name="name_medication">Nombre medicación: </string>
     <string name="time_medication">Días recetados:</string>

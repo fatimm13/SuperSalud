@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:background="@color/fondo">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -53,7 +54,7 @@
             android:layout_width="40dp"
             android:layout_height="45dp"
             android:layout_marginTop="4dp"
-            android:backgroundTint="@color/teal_200"
+            android:backgroundTint="@color/logoLightDarker"
             android:onClick="redProgr"
             android:src="@drawable/ic_remove"
             app:layout_constraintStart_toStartOf="@+id/progress_bar_water"
@@ -64,7 +65,7 @@
             android:layout_width="40dp"
             android:layout_height="45dp"
             android:layout_marginTop="4dp"
-            android:backgroundTint="@color/teal_200"
+            android:backgroundTint="@color/logoLightDarker"
             android:onClick="incrementProgr"
             android:src="@drawable/ic_add"
             app:layout_constraintEnd_toEndOf="@+id/progress_bar_water"

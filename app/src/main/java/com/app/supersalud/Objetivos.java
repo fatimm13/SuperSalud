@@ -76,11 +76,16 @@ public class Objetivos extends AppCompatActivity {
                 try {
                     int objetivo_vasos = (int) Float.parseFloat(txObjVasos.getText().toString());
                     int objetivo_pasos = (int) Float.parseFloat(txObjPasos.getText().toString());
-                    usuario.update("objetivo_vasos", objetivo_vasos);
-                    usuario.update("objetivo_pasos", objetivo_pasos);
-                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.Objetivos_actualizados), Toast.LENGTH_SHORT).show();
+                    if(objetivo_pasos <=0 || objetivo_vasos <= 0){
+                        Toast.makeText(getApplicationContext(),getResources().getString(R.string.Objetivos_positivos), Toast.LENGTH_SHORT).show();
+                    }else{
+                        usuario.update("objetivo_vasos", objetivo_vasos);
+                        usuario.update("objetivo_pasos", objetivo_pasos);
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Objetivos_actualizados), Toast.LENGTH_SHORT).show();
+                    }
+
                 } catch(Exception e) {
-                    Toast.makeText(getApplicationContext(),"Introduzca bien los datos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),getResources().getString(R.string.Introduzca_bien_los_datos), Toast.LENGTH_SHORT).show();
                 }
             }
         });
