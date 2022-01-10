@@ -1,11 +1,15 @@
 package com.app.supersalud;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.Group;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -32,13 +36,12 @@ import java.util.Map;
 
 public class AddPastilla extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
-    private EditText txDias;
     private EditText txNombre, txVeces;
     private Switch sw;
     private CheckBox lunes, martes, miercoles, jueves, viernes, sabado, domingo;
     private Date fecha;
     private TextView txFecha;
-    SimpleDateFormat objSDF;
+    private SimpleDateFormat objSDF;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,6 +170,33 @@ public class AddPastilla extends AppCompatActivity implements DatePickerDialog.O
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.Introduzca_bien_los_datos), Toast.LENGTH_SHORT).show();
         }
     }
+
+    ////// METODOS PARA CONFIGURAR EL MENU /////////
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_app, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.cerrar_sesion:
+                cerrarSesion();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void cerrarSesion() {
+        Intent intent = new Intent(this, MainActivity.class);
+        this.startActivity(intent);
+    }
+
+    //////// FIN METODOS PARA CONFIGURAR EL MENU //////////
 
     private void goPastillero() {
         Intent intent = new Intent(this, Pastillero.class);

@@ -77,7 +77,7 @@ public class PastillaListAdapter extends ArrayAdapter<Pastilla> {
         if(fecha_fin!=null){
             txFechaFin.setText(mContext.getResources().getString(R.string.Fin_Tratamiento) + " " +objSDF.format(fecha_fin));
         }else{
-            txFechaFin.setText(mContext.getResources().getString(R.string.Inicio_Tratamiento) + " " + mContext.getResources().getString(R.string.Indefinido));
+            txFechaFin.setText(mContext.getResources().getString(R.string.Fin_Tratamiento) + " " + mContext.getResources().getString(R.string.Indefinido));
         }
 
         if(rep!=null && !rep.isEmpty()){

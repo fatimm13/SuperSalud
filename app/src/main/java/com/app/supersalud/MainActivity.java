@@ -35,8 +35,6 @@ public class MainActivity extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
     private ActivityResultLauncher<Intent> myActivityResultLauncher;
 
-    private TextView tx;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,10 +90,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
-
-        // TODO ver que hacer con este texto, yo diria algo de bienvenida y otro para el anonimo
-        tx = (TextView) findViewById(R.id.tx_fechaMedi);
-        tx.setText("Hola");
     }
 
     @Override

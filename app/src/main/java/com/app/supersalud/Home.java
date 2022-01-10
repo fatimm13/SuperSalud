@@ -33,20 +33,13 @@ import java.util.Map;
 
 public class Home extends AppCompatActivity implements SensorEventListener {
 
-    ///////////////////////////////////////////////
     private SensorManager sensorManager;
     private boolean running = false;
     private float totalSteps = 0f;
     private float previousTotalSteps = 0f;
 
-    //////////////////////////////////////////////
-
-
-    protected int progr_water;
-    protected int progr_steps = -1;
-
-    private int objetivo_pasos;
-    private int objetivo_vasos;
+    private int objetivo_pasos, objetivo_vasos, progr_water;
+    private int progr_steps = -1;
 
     private DocumentReference usuario, historial;
 
@@ -60,7 +53,7 @@ public class Home extends AppCompatActivity implements SensorEventListener {
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
-        //Buscamos el texto del porcentaje, del numero de vasos y la barra de progresos.
+        //Buscamos los recursos del layout.
         txProgWater = findViewById(R.id.text_progress_water);
         txVasos = findViewById(R.id.num_vasos);
         progressBarWater = findViewById(R.id.progress_bar_water);
@@ -71,6 +64,7 @@ public class Home extends AppCompatActivity implements SensorEventListener {
         progressBarSteps = findViewById(R.id.progress_bar_steps);
         progressBarSteps.setProgress(0);
 
+        // Crea un canal de notificaciones (necesario a partir de Android Oreo)
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             NotificationChannel channel = new NotificationChannel("SuperSalud", "SuperSalud", NotificationManager.IMPORTANCE_DEFAULT);
             NotificationManager manager = getSystemService(NotificationManager.class);
@@ -80,84 +74,70 @@ public class Home extends AppCompatActivity implements SensorEventListener {
     }
 
 
-    // Lo he puesto aqui porque CREO que asi no peta cuando cierras sesion, pero maybe es cosa de mi portatil
     @Override
     protected void onStart() {
         super.onStart();
-        //Guardas la referencia en la bd al usuario registrado en otra variable de clase
+        //Guardamos la referencia en la bd al usuario registrado
         usuario = UsuarioSingleton.getInstance().usuario;
         String nombre = UsuarioSingleton.getInstance().nombre;
 
         //Pones el nombre del usuario arriba de la página
         TextView tx = findViewById(R.id.tx_vecesMedi);
         tx.setText(nombre);
-        //usuario = db.collection("usuarios").document(email);
 
-        //Si no existe el usuario lo crea
+        //Cargamos los datos del usuario, que si no existen se crean
         creaCargaUsuario(nombre);
-
-        //EN ESTE PUNTO POR ALGUNA RAZON progr_water LO TRATA COMO 0, TENERLO MUY EN CUENTA
     }
 
+    /** Funcion que carga los datos de un usuario, que si no existe se crea nuevo **/
     private void creaCargaUsuario(String nombre) {
-
         usuario.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        //Si el documento existe cogemos los objetivos del usuario
+                        //Si el documento existe, obtenemos los objetivos del usuario
                         Map<String, Object> datos = document.getData();
                         objetivo_vasos = Integer.parseInt(datos.get("objetivo_vasos").toString());
                         objetivo_pasos = Integer.parseInt(datos.get("objetivo_pasos").toString());
 
                     } else {
-                        // No existe el usuario, por lo que se crea
+                        // No existe el usuario, por lo que se crea con su nombre y objetivos predefinidos
                         objetivo_vasos = 8;
                         objetivo_pasos = 2000;
 
                         Map<String, Object> datos = new HashMap<>();
-
-                        //Se inicializan el nombre como el nombre introducido y los otros valores por ahora están hardcodeados.
                         datos.put("nombre", nombre);
                         datos.put("objetivo_vasos", objetivo_vasos);
                         datos.put("objetivo_pasos", objetivo_pasos);
 
-                        //Se introducen estos datos en la base de datos
-                        usuario.set(datos);
+                        usuario.set(datos);     // Se introducen estos datos en la base de datos
                     }
 
-                    /**
-                    //Creamos la fecha de hoy
-                    SimpleDateFormat objSDF = new SimpleDateFormat("yyyy-MM-dd");
-                    Date fecha = new Date();
-                    String hoy = objSDF.format(fecha);
-
-                    historial = usuario.collection("historial").document(hoy);
-                     **/
+                    //Guardamos la referencia en la bd del historial del dia actual del usuario registrado
                     historial = HistorialSingleton.getInstance().historial;
 
-                    //Se cargan los valores del usuario en variables de la clase y se cambian los datos mostrados
+                    //Se cargan los datos del historial del dia actual, que si no existen se inicializan a 0
                     creaCargaDatos();
 
                 } else {
-                    //Gestión de errores para debugging
+                    // TODO: Falta el string
                     Toast.makeText(getApplicationContext(), "Fallo con " + task.getException(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
+    /** Funcion que carga el historial del dia actual de un usuario, que si no existe se crea de 0 **/
     private void creaCargaDatos() {
-
         historial.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        //Si el documento existe cogemos los vasos de agua que tenga este día
+                        //Si el documento existe, cogemos los valores de ese dia
                         Map<String, Object> datos = document.getData();
                         progr_water = Integer.parseInt(datos.get("vasos").toString());
                         progr_steps = Integer.parseInt(datos.get("pasos").toString());
@@ -173,10 +153,12 @@ public class Home extends AppCompatActivity implements SensorEventListener {
                         //Guardamos estos datos en la base de datos
                         historial.set(datos);
                     }
+
+                    // Se muestran los datos del agua y de los pasos del historial
                     updateDataShownWater();
                     updateDataShownSteps();
                 } else {
-                    //Gestion de errores
+                    //TODO el string
                     Toast.makeText(getApplicationContext(), "Fallo con " + task.getException(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -184,20 +166,23 @@ public class Home extends AppCompatActivity implements SensorEventListener {
 
     }
 
-    public void incrementProgr (View v){
+    /** Funcion que incrementa en 1 la cantidad de vasos **/
+    public void incrementProgr(View v){
         progr_water+=1;
         updateWaterDB();
         updateDataShownWater();
-
     }
-    public void redProgr (View v){
-        if(progr_water> 0) {
+
+    /** Funcion que decrementa en 1 la cantidad de vasos **/
+    public void redProgr(View v){
+        if(progr_water > 0) {
             progr_water-=1;
         }
         updateWaterDB();
         updateDataShownWater();
     }
 
+    /** Actualiza los datos que se muestran respecto a la cantidad de agua **/
     private void updateDataShownWater(){
         //Calculamos el porcentaje de agua bebido frente al objetivo
         int porc = 0;
@@ -211,6 +196,7 @@ public class Home extends AppCompatActivity implements SensorEventListener {
         txVasos.setText(progr_water+"");
         progressBarWater.setProgress(porc, true);
 
+        //Notificamos si se ha alcanzado el objetivo
         if (progr_water == objetivo_vasos){
             NotificationCompat.Builder builder = new NotificationCompat.Builder(Home.this, "SuperSalud");
             builder.setContentTitle(getResources().getString(R.string.Objetivo_conseguido));
@@ -223,13 +209,12 @@ public class Home extends AppCompatActivity implements SensorEventListener {
         }
     }
 
+    /** Actualizamos el valor de vasos en la base de datos **/
     private void updateWaterDB(){
-        //Actualizamos el valor de vasos en la base de datos
         historial.update("vasos", progr_water);
     }
 
-    //// Pasos
-
+    /** Actualiza los datos que se muestran respecto a la cantidad de pasos dados **/
     private void updateDataShownSteps(){
         //Calculamos el porcentaje de pasos dados frente al objetivo
         int porc = 0;
@@ -243,7 +228,7 @@ public class Home extends AppCompatActivity implements SensorEventListener {
         txPasos.setText(progr_steps+" " + getResources().getString(R.string.steps));
         progressBarSteps.setProgress(porc, true);
 
-        //Damos un margen porque los pasos pueden llegar a dar saltos a la hora de actualizarse
+        //Notificamos cuando se llega al objetivo, dando un margen por posibles fallos al contabilizar los pasos
         if (progr_steps >= objetivo_pasos && progr_steps < objetivo_pasos+3){
             NotificationCompat.Builder builder = new NotificationCompat.Builder(Home.this, "SuperSalud");
             builder.setContentTitle(getResources().getString(R.string.Objetivo_conseguido));
@@ -256,12 +241,55 @@ public class Home extends AppCompatActivity implements SensorEventListener {
         }
     }
 
+    /** Actualizamos el valor de pasos en la base de datos **/
     private void updateStepsDB(){
         //Actualizamos el valor de pasos en la base de datos
         if (historial != null){
             historial.update("pasos", progr_steps);
         }
     }
+
+    //////// METODOS PARA CONFIGURAR EL CUENTAPASOS //////
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        totalSteps = 0f;
+        previousTotalSteps=0f;
+        running = true;
+        Sensor stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+        if (stepSensor == null) {
+            // El dispositivo no dispone de cuentapasos
+            //TODO el String
+            Toast.makeText(getApplicationContext(), "No sensor detected on this device", Toast.LENGTH_SHORT).show();
+        } else {
+            sensorManager.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_UI);
+        }
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        if (running && event != null && progr_steps != -1) {
+            if (totalSteps == 0f) {
+                //Es la primera vez en el dispositivo, se restan los pasos contabilizados anteriormente
+                totalSteps = event.values[0];
+                previousTotalSteps = totalSteps-progr_steps;
+            } else {
+                totalSteps = event.values[0];
+            }
+            progr_steps = (int) totalSteps - (int) previousTotalSteps; ;
+            updateDataShownSteps();
+            updateStepsDB();
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
+
+    //////// FIN DE METODOS PARA CONFIGURAR EL CUENTAPASOS //////
+
 
     ////// METODOS PARA CONFIGURAR EL MENU /////////
 
@@ -285,77 +313,28 @@ public class Home extends AppCompatActivity implements SensorEventListener {
         }
     }
 
-    //////// FIN METODOS PARA CONFIGURAR EL MENU //////////
-
     private void cerrarSesion() {
-        UsuarioSingleton.cerrarSesion();
-        HistorialSingleton.cerrarSesion();
         Intent intent = new Intent(this, MainActivity.class);
         this.startActivity(intent);
     }
 
+    //////// FIN METODOS PARA CONFIGURAR EL MENU //////////
+
+    /** Va a la actividad de Objetivos **/
     public void goObjectives (View view){
         Intent intent = new Intent(this, Objetivos.class);
         startActivity(intent);
     }
 
+    /** Va a la actividad de Pastillero **/
     public void goPills (View view){
         Intent intent = new Intent(this, Pastillero.class);
         startActivity(intent);
     }
 
+    /** Va a la actividad de Historiales **/
     public void goHistoriales (View view){
         Intent intent = new Intent(this, Historiales.class);
         startActivity(intent);
-    }
-
-    ////////////////////////// CUENTAPASOS //////////////////////////////////////////////
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        totalSteps = 0f;
-        previousTotalSteps=0f;
-        running = true;     // TODO: maybe esto hace que no se ejecute en segundo plano??
-        Sensor stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
-        if (stepSensor == null) {
-            Toast.makeText(getApplicationContext(), "No sensor detected on this device", Toast.LENGTH_SHORT).show();
-        } else {
-            sensorManager.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_UI);
-
-        }
-    }
-
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        if (running && event != null && progr_steps != -1) {
-            /**
-            totalSteps = event.values[0];
-            int currentSteps = (int) totalSteps - (int) previousTotalSteps;
-            txPasos.setText(currentSteps);
-            progressBarSteps.setProgress(currentSteps, true);
-             **/
-            if (totalSteps == 0f) {
-                totalSteps = event.values[0];
-                previousTotalSteps = totalSteps-progr_steps;
-            } else {
-                totalSteps = event.values[0];
-            }
-            //int progreso =      // lo que has avanzado nuevo
-            progr_steps = (int) totalSteps - (int) previousTotalSteps; ;
-            updateDataShownSteps();
-            updateStepsDB();
-        }
-
-    }
-/**
-    public void resetSteps() {
-        previousTotalSteps = totalSteps;
-    }
-**/
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
     }
 }
