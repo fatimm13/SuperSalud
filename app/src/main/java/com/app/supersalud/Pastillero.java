@@ -80,6 +80,7 @@ public class Pastillero extends AppCompatActivity {
                             fecha = null;
                         }
                          **/
+                        pill.setId(document.getId());
                         Date fechafin = pill.getFecha_fin();
                         if (fechafin != null && fechafin.before(hoy)) {
                             borrarMedicacion(document.getId());

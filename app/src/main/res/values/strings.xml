@@ -44,5 +44,5 @@
     <string name="time_medication">Días recetados:</string>
     <string name="num_pills">Número de dosis diarias:</string>
     <string name="add_pill">Nueva pastilla</string>
-    <string name="delete_pill">Borra medicacion</string>
+    <string name="delete_pill">Borrar</string>
 </resources>

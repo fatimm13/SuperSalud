@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,6 +22,7 @@ public class Historiales extends AppCompatActivity {
 
     private CollectionReference historiales;
 
+    private ListView listaView;
     private ArrayList<Historial> listaHistoriales;
 
     @Override
@@ -28,6 +30,7 @@ public class Historiales extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historiales);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        listaView = findViewById(R.id.lista_historial);
     }
 
     @Override
@@ -61,7 +64,8 @@ public class Historiales extends AppCompatActivity {
                     //PastillaListAdapter adaptador = new PastillaListAdapter(Pastillero.this,R.layout.adapter_view_layout, (ArrayList<Pastilla>) listaPastillas);
                     //listaView.setAdapter(adaptador);
                     //Toast.makeText(getApplicationContext(), listaHistoriales.get(0).getFecha() + " // " + listaHistoriales.get(0).getPasos() + " // " + listaHistoriales.get(0).getVasos() , Toast.LENGTH_SHORT).show();
-
+                    HistorialListAdapter adaptador = new HistorialListAdapter(Historiales.this,R.layout.adapter_view_layout_history, (ArrayList<Historial>) listaHistoriales);
+                    listaView.setAdapter(adaptador);
                 } else {
                     //Gestión de errores para debugging
                     Toast.makeText(getApplicationContext(), "Fallo con " + task.getException(), Toast.LENGTH_SHORT).show();

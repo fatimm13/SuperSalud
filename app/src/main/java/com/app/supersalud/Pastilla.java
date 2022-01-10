@@ -10,24 +10,31 @@ public class Pastilla {
     private int veces_dia;
     private Date fecha_inicio, fecha_fin;
     private List<String> repeticiones;
+    private String id;
 
     public Pastilla() {}
-/**
-    public Pastilla(String nombre, int veces_dia, Timestamp fecha_inicio, Timestamp fecha_fin, List<String> repeticiones) {
-        this.nombre = nombre;
-        this.veces_dia = veces_dia;
-        this.fecha_inicio = new Date(fecha_inicio.getTime());
-        this.fecha_fin = new Date(fecha_fin.getTime());
-        this.repeticiones = repeticiones;
-    }
 
-    public Pastilla(String nombre, int veces_dia, Date fecha_fin, List<String> repeticiones) {
-        this.nombre = nombre;
-        this.veces_dia = veces_dia;
-        this.fecha_fin = fecha_fin;
-        this.repeticiones = repeticiones;
-    }
-**/
+    /**
+     public Pastilla(String nombre, int veces_dia, Timestamp fecha_inicio, Timestamp fecha_fin, List<String> repeticiones) {
+     this.nombre = nombre;
+     this.veces_dia = veces_dia;
+     this.fecha_inicio = new Date(fecha_inicio.getTime());
+     this.fecha_fin = new Date(fecha_fin.getTime());
+     this.repeticiones = repeticiones;
+     }
+
+     public Pastilla(String nombre, int veces_dia, Date fecha_fin, List<String> repeticiones) {
+     this.nombre = nombre;
+     this.veces_dia = veces_dia;
+     this.fecha_fin = fecha_fin;
+     this.repeticiones = repeticiones;
+     }
+     **/
+
+    public String getId() { return id; }
+
+    public void setId(String id) { this.id = id; }
+
     public String getNombre() {
         return nombre;
     }
