@@ -1,4 +1,4 @@
-package com.app.supersalud;
+package com.app.supersalud.DTO;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,6 +12,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.app.supersalud.Pastillero;
+import com.app.supersalud.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -47,7 +49,7 @@ public class PastillaListAdapter extends ArrayAdapter<Pastilla> {
         List<String> rep = getItem(position).getRepeticiones();
         String id = getItem(position).getId();
 
-        CollectionReference medicacion = (CollectionReference)SingletonMap.getInstance().get(Pastillero.MEDICACION);
+        CollectionReference medicacion = (CollectionReference) SingletonMap.getInstance().get(Pastillero.MEDICACION);
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource,parent,false);

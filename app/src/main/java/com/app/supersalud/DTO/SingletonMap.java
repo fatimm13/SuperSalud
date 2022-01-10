@@ -1,4 +1,4 @@
-package com.app.supersalud;
+package com.app.supersalud.DTO;
 
 import java.util.HashMap;
 

@@ -1,53 +1,58 @@
 <resources>
 
     <!-- Nombres de las actividades -->
-    <string name="app_name">Super Salud</string>
-    <string name="title_activity_inicio_sesion">Inicio de sesion</string>
-    <string name="title_activity_pastillero">Listado de medicacion</string>
-    <string name="title_activity_addPastilla">Añadir medicacion</string>
-    <string name="title_activity_objetivos">Objetivos</string>
-    <string name="title_activity_historiales">Historial</string>
+    <string name="app_name" translatable="false">Super Salud</string>
+    <string name="title_activity_inicio_sesion">Log in</string>
+    <string name="title_activity_pastillero">Medication list</string>
+    <string name="title_activity_addPastilla">Add medication</string>
+    <string name="title_activity_objetivos">Objetives</string>
+    <string name="title_activity_historiales">History</string>
 
     <!-- Avisos de los Toast -->
-    <string name="fallo_inicio_google">Fallo en el inicio de sesion con Google</string>
-    <string name="inicio_google_exitoso">Exito en el inicio de sesion con credenciales</string>
-    <string name="inicio_google_fallido">Fallo en el inicio de sesion con credenciales</string>
+    <string name="fallo_inicio_google">Google log in failure</string>
+    <string name="inicio_google_exitoso">Credential log in success</string>
+    <string name="inicio_google_fallido">Credential log in failure</string>
 
-    <string name="log_out">Cerrar sesion</string>
+    <string name="log_out">Log out</string>
 
-    <string name="pastillero">Pastillero</string>
+    <string name="pastillero">Medication</string>
 
-    <string name="desc_pastillero">Listado de medicacion</string>
-    <string name="agua">Tu agua hoy</string>
-    <string name="water">Agua</string>
-    <string name="pasos">Pasos</string>
-    <string name="objetivos">Definir Objetivos</string>
-    <string name="historial">Historial</string>
-    <string name="your_steps">Tus pasos hoy</string>
-    <string name="steps">pasos</string>
-    <string name="glasses">Vasos</string>
-    <string name="current_objective">Objetivo actual:</string>
-    <string name="new_objective">Nuevo objetivo:</string>
-    <string name="Actualiza_datos">Actualiza datos</string>
-    <string name="Objetivos_actualizados">¡Objetivos actualizados!</string>
-    <string name="Nueva_pastilla">Nueva pastilla</string>
-    <string name="Fin_del_tratamiento">Fin del tratamiento</string>
-    <string name="Fecha_seleccionada">Fecha seleccionada:</string>
-    <string name="Lista_tratamientos">Tratamientos</string>
-    <string name="Dosis_diarias">Dosis diarias: </string>
-    <string name="Inicio_Tratamiento"> Inicio: </string>
-    <string name="Fin_Tratamiento">Fin: </string>
-    <string name="Indefinido">Indefinido</string>
-    <string name="Todos_los_dias">Todos los días</string>
-    <string name="Objetivo_conseguido">¡Objetivo conseguido!</string>
-    <string name="Texto_objetivo_agua">Has alcanzado tu objetivo de vasos para hoy, ¡Sigue así!</string>
-    <string name="Texto_objetivo_pasos">Has alcanzado tu objetivo de pasos para hoy, ¡Sigue así!</string>
-    <string name="Introduzca_bien_los_datos">Introduzca bien los datos</string>
-    <string name="Objetivos_positivos">Los objetivos deben ser mayores que 0</string>
+    <string name="desc_pastillero">Medication list</string>
+    <string name="Tu_agua_hoy">Water today</string>
+    <string name="Agua">Water</string>
+    <string name="Pasos">Steps</string>
+    <string name="Definir_Objetivos">Define objectives</string>
+    <string name="Historial">History</string>
+    <string name="Tus_pasos_hoy">Steps today</string>
+    <string name="pasos">steps</string>
+    <string name="Vasos">Glasses</string>
+    <string name="Objetivo_actual">Current objectives:</string>
+    <string name="Nuevo_objetivo">New objectives:</string>
+    <string name="Actualiza_datos">Update data</string>
+    <string name="Objetivos_actualizados">Objetives updated!</string>
+    <string name="Nueva_pastilla">Add medication</string>
+    <string name="Fin_del_tratamiento">End of treatment</string>
+    <string name="Fecha_seleccionada">Selected date:</string>
+    <string name="Lista_tratamientos">Treatments</string>
+    <string name="Dosis_diarias">Daily dosage: </string>
+    <string name="Inicio_Tratamiento"> Start: </string>
+    <string name="Fin_Tratamiento">End: </string>
+    <string name="Indefinido">Undefined</string>
+    <string name="Todos_los_dias">Daily</string>
+    <string name="Objetivo_conseguido">Objetive achieved!</string>
+    <string name="Texto_objetivo_agua">You achieved your water goal for today, Congratulations!</string>
+    <string name="Texto_objetivo_pasos">You achieved your steps goal for today, Congratulations!</string>
+    <string name="Introduzca_bien_los_datos">Input correctly formated data</string>
+    <string name="Objetivos_positivos">Objectives must be larger than 0</string>
+    <string name="Recomendaciones_objetivos">Experts recommend 6 to 8 glasses of water and 7000 to 11000 steps daily for adults</string>
+    <string name="Error_de_BD">Database error</string>
+    <string name="No_sensor">No sensor detected on this device</string>
+    <string name="No_past_date">No past dates allowed</string>
+    <string name="Inicio_anonimo">Anonymous login</string>
+    <string name="Dias_repetidos">Repetition by days</string>
 
-    <string name="name_medication">Nombre medicación: </string>
-    <string name="time_medication">Días recetados:</string>
-    <string name="num_pills">Número de dosis diarias:</string>
-    <string name="add_pill">Nueva pastilla</string>
-    <string name="delete_pill">Borrar</string>
+    <string name="name_medication">Medication name: </string>
+    <string name="num_pills">Daily dosage:</string>
+    <string name="add_pill">New medication</string>
+    <string name="delete_pill">Delete</string>
 </resources>

@@ -13,16 +13,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.common.SignInButton;
+import com.app.supersalud.DTO.UsuarioSingleton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 public class Objetivos extends AppCompatActivity {
@@ -57,13 +53,11 @@ public class Objetivos extends AppCompatActivity {
                         txObjPasos.setText(objetivo_pasos + "");
                     } else {
                         // No existe el usuario, error
-                        //TODO String del toast
-                        Toast.makeText(getApplicationContext(), "Error, el usuario no existe", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.Error_de_BD), Toast.LENGTH_SHORT).show();
                         cerrarSesion();
                     }
                 } else {
-                    //TODO fallo
-                    Toast.makeText(getApplicationContext(), "Fallo con " + task.getException(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.Error_de_BD), Toast.LENGTH_SHORT).show();
                     cerrarSesion();
                 }
             }

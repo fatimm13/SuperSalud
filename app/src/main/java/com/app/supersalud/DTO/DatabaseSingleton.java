@@ -1,4 +1,4 @@
-package com.app.supersalud;
+package com.app.supersalud.DTO;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 

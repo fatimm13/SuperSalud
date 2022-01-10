@@ -1,4 +1,4 @@
-package com.app.supersalud;
+package com.app.supersalud.DTO;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.app.supersalud.R;
 
 import java.util.List;
 
@@ -41,8 +43,8 @@ public class HistorialListAdapter extends ArrayAdapter<Historial> {
 
         // Se establece el texto
         txFecha.setText(fecha);
-        txVasos.setText(mContext.getResources().getString(R.string.water) + ": " + agua);
-        txPasos.setText(mContext.getResources().getString(R.string.pasos) + ": " + pasos);
+        txVasos.setText(mContext.getResources().getString(R.string.Agua) + ": " + agua);
+        txPasos.setText(mContext.getResources().getString(R.string.Pasos) + ": " + pasos);
 
         return convertView;
     }

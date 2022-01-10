@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
             android:onClick="clickSwitch"
-            android:text="Repetición por días"
+            android:text="@string/Dias_repetidos"
             android:textColor="#000000"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@+id/in_quantPillsDaily"

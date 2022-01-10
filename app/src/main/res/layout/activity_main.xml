@@ -23,25 +23,13 @@
         android:id="@+id/bAnonimo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Inicio anonimo"
+        android:text="@string/Inicio_anonimo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/sign_in_button"
         app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="@+id/sign_in_button"
         app:layout_constraintTop_toBottomOf="@+id/sign_in_button"
         app:layout_constraintVertical_bias="0.097" />
-
-    <TextView
-        android:id="@+id/tx_fechaMedi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Aah"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.078"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView"

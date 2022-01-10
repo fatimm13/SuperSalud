@@ -3,33 +3,27 @@ package com.app.supersalud;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.app.supersalud.DTO.Pastilla;
+import com.app.supersalud.DTO.PastillaListAdapter;
+import com.app.supersalud.DTO.SingletonMap;
+import com.app.supersalud.DTO.UsuarioSingleton;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class Pastillero extends AppCompatActivity {
 
@@ -50,7 +44,7 @@ public class Pastillero extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         // Crea/obtiene la referencia a la coleccion de medicacion del usuario
-        medicacion = (CollectionReference)SingletonMap.getInstance().get(Pastillero.MEDICACION);
+        medicacion = (CollectionReference) SingletonMap.getInstance().get(Pastillero.MEDICACION);
         if (medicacion == null) {
             medicacion = UsuarioSingleton.getInstance().usuario.collection("medicacion");
             SingletonMap.getInstance().put(Pastillero.MEDICACION, medicacion);
@@ -85,8 +79,7 @@ public class Pastillero extends AppCompatActivity {
                     listaView.setAdapter(adaptador);
 
                 } else {
-                    //TODO string
-                    Toast.makeText(getApplicationContext(), "Fallo con " + task.getException(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.Error_de_BD), Toast.LENGTH_SHORT).show();
                 }
             }
         });

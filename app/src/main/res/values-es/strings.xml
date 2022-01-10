@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Nombres de las actividades -->
+    <string name="title_activity_inicio_sesion">Inicio de sesión</string>
+    <string name="title_activity_pastillero">Listado de medicación</string>
+    <string name="title_activity_addPastilla">Añadir medicación</string>
+    <string name="title_activity_objetivos">Objetivos</string>
+    <string name="title_activity_historiales">Historial</string>
+
+    <!-- Avisos de los Toast -->
+    <string name="fallo_inicio_google">Fallo en el inicio de sesión con Google</string>
+    <string name="inicio_google_exitoso">Exito en el inicio de sesión con credenciales</string>
+    <string name="inicio_google_fallido">Fallo en el inicio de sesión con credenciales</string>
+
+    <string name="log_out">Cerrar sesión</string>
+
+    <string name="pastillero">Medicación</string>
+
+    <string name="desc_pastillero">Listado de medicación</string>
+    <string name="Tu_agua_hoy">Tu agua hoy</string>
+    <string name="Agua">Agua</string>
+    <string name="Pasos">Pasos</string>
+    <string name="Definir_Objetivos">Definir Objetivos</string>
+    <string name="Historial">Historial</string>
+    <string name="Tus_pasos_hoy">Tus pasos hoy</string>
+    <string name="pasos">pasos</string>
+    <string name="Vasos">Vasos</string>
+    <string name="Objetivo_actual">Objetivo actual:</string>
+    <string name="Nuevo_objetivo">Nuevo objetivo:</string>
+    <string name="Actualiza_datos">Actualiza datos</string>
+    <string name="Objetivos_actualizados">¡Objetivos actualizados!</string>
+    <string name="Nueva_pastilla">Añadir medicación</string>
+    <string name="Fin_del_tratamiento">Fin del tratamiento</string>
+    <string name="Fecha_seleccionada">Fecha seleccionada:</string>
+    <string name="Lista_tratamientos">Tratamientos</string>
+    <string name="Dosis_diarias">Dosis diarias: </string>
+    <string name="Inicio_Tratamiento"> Inicio: </string>
+    <string name="Fin_Tratamiento">Fin: </string>
+    <string name="Indefinido">Indefinido</string>
+    <string name="Todos_los_dias">Todos los días</string>
+    <string name="Objetivo_conseguido">¡Objetivo conseguido!</string>
+    <string name="Texto_objetivo_agua">Has alcanzado tu objetivo de vasos para hoy, ¡Sigue así!</string>
+    <string name="Texto_objetivo_pasos">Has alcanzado tu objetivo de pasos para hoy, ¡Sigue así!</string>
+    <string name="Introduzca_bien_los_datos">Introduzca bien los datos</string>
+    <string name="Objetivos_positivos">Los objetivos deben ser mayores que 0</string>
+    <string name="Recomendaciones_objetivos">Los expertos recomiendan de 6 a 8 vasos de agua y de 7000 a 11000 pasos al día en adultos</string>
+    <string name="Error_de_BD">Error en la obtención de datos</string>
+    <string name="No_sensor">No se detecta sensor en el dispositivo</string>
+    <string name="No_past_date">La fecha debe ser posterior a hoy</string>
+    <string name="Inicio_anonimo">Inicio anónimo</string>
+    <string name="Dias_repetidos">Repetición por días</string>
+
+    <string name="name_medication">Nombre medicación: </string>
+    <string name="num_pills">Número de dosis diarias:</string>
+    <string name="add_pill">Nueva pastilla</string>
+    <string name="delete_pill">Borrar</string>
+</resources>

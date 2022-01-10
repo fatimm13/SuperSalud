@@ -1,4 +1,4 @@
-package com.app.supersalud;
+package com.app.supersalud.DTO;
 
 /** Clase para establecer y obtener el Historial **/
 public class Historial {

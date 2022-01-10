@@ -18,16 +18,13 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.supersalud.DTO.SingletonMap;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-
-import org.w3c.dom.Document;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -100,8 +97,7 @@ public class AddPastilla extends AppCompatActivity implements DatePickerDialog.O
         Date date = Date.from(f.atStartOfDay(ZoneId.systemDefault()).toInstant());
         if(date.before(new Date())) {
             // La fecha es pasada
-            // TODO string
-            Toast.makeText(getApplicationContext(),"La fecha no puede ser pasada", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),getResources().getString(R.string.No_past_date), Toast.LENGTH_SHORT).show();
         } else {
             fecha = date;
             txFecha.setText(objSDF.format(fecha));
@@ -162,7 +158,7 @@ public class AddPastilla extends AppCompatActivity implements DatePickerDialog.O
             datos.put("repeticiones", rep);
 
             //Se introducen los datos en la base de datos
-            CollectionReference medicacion = (CollectionReference)SingletonMap.getInstance().get(Pastillero.MEDICACION);
+            CollectionReference medicacion = (CollectionReference) SingletonMap.getInstance().get(Pastillero.MEDICACION);
             if (medicacion == null) {
                 // Ha habido un error, vuelve a la actividad anterior
                 Toast.makeText(getApplicationContext(), "Error al conectar con la BD", Toast.LENGTH_SHORT).show();

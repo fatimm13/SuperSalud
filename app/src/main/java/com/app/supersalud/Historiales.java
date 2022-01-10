@@ -11,6 +11,10 @@ import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.app.supersalud.DTO.Historial;
+import com.app.supersalud.DTO.HistorialListAdapter;
+import com.app.supersalud.DTO.SingletonMap;
+import com.app.supersalud.DTO.UsuarioSingleton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -19,7 +23,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 
 public class Historiales extends AppCompatActivity {
 
@@ -39,7 +42,7 @@ public class Historiales extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         // Crea/obtiene la referencia a la coleccion de historiales del usuario
-        historiales = (CollectionReference)SingletonMap.getInstance().get(HISTORIALES);
+        historiales = (CollectionReference) SingletonMap.getInstance().get(HISTORIALES);
         if (historiales == null) {
             historiales = UsuarioSingleton.getInstance().usuario.collection("historial");
             SingletonMap.getInstance().put(HISTORIALES, historiales);
@@ -68,8 +71,7 @@ public class Historiales extends AppCompatActivity {
                     HistorialListAdapter adaptador = new HistorialListAdapter(Historiales.this,R.layout.adapter_view_layout_history, listaHistoriales);
                     listaView.setAdapter(adaptador);
                 } else {
-                    //TODO string
-                    Toast.makeText(getApplicationContext(), "Fallo con " + task.getException(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.Error_de_BD), Toast.LENGTH_SHORT).show();
                 }
             }
         });

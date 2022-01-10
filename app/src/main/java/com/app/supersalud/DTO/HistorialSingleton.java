@@ -1,7 +1,6 @@
-package com.app.supersalud;
+package com.app.supersalud.DTO;
 
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

@@ -23,6 +23,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.supersalud.DTO.HistorialSingleton;
+import com.app.supersalud.DTO.UsuarioSingleton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
@@ -105,7 +107,7 @@ public class Home extends AppCompatActivity implements SensorEventListener {
                     } else {
                         // No existe el usuario, por lo que se crea con su nombre y objetivos predefinidos
                         objetivo_vasos = 8;
-                        objetivo_pasos = 2000;
+                        objetivo_pasos = 10000;
 
                         Map<String, Object> datos = new HashMap<>();
                         datos.put("nombre", nombre);
@@ -122,8 +124,7 @@ public class Home extends AppCompatActivity implements SensorEventListener {
                     creaCargaDatos();
 
                 } else {
-                    // TODO: Falta el string
-                    Toast.makeText(getApplicationContext(), "Fallo con " + task.getException(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.Error_de_BD), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -158,8 +159,7 @@ public class Home extends AppCompatActivity implements SensorEventListener {
                     updateDataShownWater();
                     updateDataShownSteps();
                 } else {
-                    //TODO el string
-                    Toast.makeText(getApplicationContext(), "Fallo con " + task.getException(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.Error_de_BD), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -225,7 +225,7 @@ public class Home extends AppCompatActivity implements SensorEventListener {
 
         //Ponemos el valor que tengan los datos
         txProgSteps.setText(porc +"%");
-        txPasos.setText(progr_steps+" " + getResources().getString(R.string.steps));
+        txPasos.setText(progr_steps+" " + getResources().getString(R.string.pasos));
         progressBarSteps.setProgress(porc, true);
 
         //Notificamos cuando se llega al objetivo, dando un margen por posibles fallos al contabilizar los pasos
@@ -260,8 +260,7 @@ public class Home extends AppCompatActivity implements SensorEventListener {
         Sensor stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
         if (stepSensor == null) {
             // El dispositivo no dispone de cuentapasos
-            //TODO el String
-            Toast.makeText(getApplicationContext(), "No sensor detected on this device", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.No_sensor), Toast.LENGTH_SHORT).show();
         } else {
             sensorManager.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_UI);
         }
