@@ -36,8 +36,8 @@ public class Home extends AppCompatActivity implements SensorEventListener {
     ///////////////////////////////////////////////
     private SensorManager sensorManager;
     private boolean running = false;
-    //private float totalSteps = 0f;
-    //private float previousTotalSteps = 0f;
+    private float totalSteps = 0f;
+    private float previousTotalSteps = 0f;
 
     //////////////////////////////////////////////
 
@@ -317,12 +317,14 @@ public class Home extends AppCompatActivity implements SensorEventListener {
     @Override
     protected void onResume() {
         super.onResume();
+        totalSteps = 0f;
         running = true;     // TODO: maybe esto hace que no se ejecute en segundo plano??
         Sensor stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
         if (stepSensor == null) {
             Toast.makeText(getApplicationContext(), "No sensor detected on this device", Toast.LENGTH_SHORT).show();
         } else {
             sensorManager.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_UI);
+
         }
     }
 
@@ -335,13 +337,24 @@ public class Home extends AppCompatActivity implements SensorEventListener {
             txPasos.setText(currentSteps);
             progressBarSteps.setProgress(currentSteps, true);
              **/
-            progr_steps = (int) event.values[0];
+            if (totalSteps == 0f) {
+                totalSteps = event.values[0];
+                previousTotalSteps = totalSteps;
+            } else {
+                totalSteps = event.values[0];
+            }
+            int progreso = (int) totalSteps - (int) previousTotalSteps;      // lo que has avanzado nuevo
+            progr_steps += progreso;
             updateDataShownSteps();
             updateStepsDB();
         }
 
     }
-
+/**
+    public void resetSteps() {
+        previousTotalSteps = totalSteps;
+    }
+**/
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
