@@ -49,10 +49,11 @@ public class AddPastilla extends AppCompatActivity implements DatePickerDialog.O
         setContentView(R.layout.activity_add_pastilla);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // Marcamos un formato de fecha
         objSDF = new SimpleDateFormat("dd/MM/yyyy");
 
+        // Obtenemos todos los objetos del layout que necesitamos
         txNombre = findViewById(R.id.in_nombreMed);
-        //txDias = findViewById(R.id.in_dayAmount);
         txVeces = findViewById(R.id.in_quantPillsDaily);
         sw = findViewById(R.id.switch1);
         lunes = findViewById(R.id.cL);
@@ -62,9 +63,9 @@ public class AddPastilla extends AppCompatActivity implements DatePickerDialog.O
         viernes = findViewById(R.id.cV);
         sabado = findViewById(R.id.cS);
         domingo = findViewById(R.id.cD);
-
         txFecha = findViewById(R.id.tFecha);
 
+        // Indicamos el onClick del boton
         findViewById(R.id.bFechaFin).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,15 +73,15 @@ public class AddPastilla extends AppCompatActivity implements DatePickerDialog.O
             }
         });
 
-
+        // Establecemos texto predeterminado
         txNombre.setText("");
-        //txDias.setText("1");
         txVeces.setText("1");
         txFecha.setText(getResources().getString(R.string.Indefinido));
 
         ocultarSemana();
     }
 
+    /** Muestra un calendario **/
     private void showDatePicker() {
         DatePickerDialog datePicker = new DatePickerDialog(
                 this,
@@ -94,9 +95,12 @@ public class AddPastilla extends AppCompatActivity implements DatePickerDialog.O
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        // Si la fecha elegida del calendario es correcta, se guarda
         LocalDate f = LocalDate.of(year, month + 1, dayOfMonth);
         Date date = Date.from(f.atStartOfDay(ZoneId.systemDefault()).toInstant());
         if(date.before(new Date())) {
+            // La fecha es pasada
+            // TODO string
             Toast.makeText(getApplicationContext(),"La fecha no puede ser pasada", Toast.LENGTH_SHORT).show();
         } else {
             fecha = date;
@@ -104,6 +108,7 @@ public class AddPastilla extends AppCompatActivity implements DatePickerDialog.O
         }
     }
 
+    /** Funcion para cuando se clickea el switch **/
     public void clickSwitch(View view){
         if(sw.isChecked()){
             mostrarSemana();
@@ -112,37 +117,39 @@ public class AddPastilla extends AppCompatActivity implements DatePickerDialog.O
         }
     }
 
+    /** Funcion que establece como visible los checkbox de la semana **/
     private void mostrarSemana(){
         Group group = findViewById(R.id.group);
         group.setVisibility(View.VISIBLE);
     }
 
+    /** Funcion que establece como idos los checkbox de la semana **/
     private void ocultarSemana(){
         Group group = findViewById(R.id.group);
         group.setVisibility(View.GONE);
     }
 
+    /** Funcion que añade el medicamento **/
     public void crearPastilla(View view){
-
         try{
             String nombre = txNombre.getText().toString();
             int veces = (int) Float.parseFloat(txVeces.getText().toString());
 
+            // Comprobamos si los datos del nombre y del num de veces es correcto
             if(nombre == null || nombre.equals("") || veces <=0){
                 throw new Exception();
             }
 
+            // Guardamos los datos obtenidos
             Map<String, Object> datos = new HashMap<>();
-
             datos.put("nombre", nombre);
             datos.put("veces_dia", veces);
             datos.put("fecha_inicio", new Date());
             datos.put("fecha_fin", fecha);
 
-
-
+            // Comprobamos si existen dias de repeticiones para añadirlos
             List<String> rep;
-            rep= new ArrayList<>();
+            rep = new ArrayList<>();
             if (sw.isChecked()) {
                 if (lunes.isChecked()) { rep.add("Mon"); }
                 if (martes.isChecked()) { rep.add("Tue"); }
@@ -154,17 +161,17 @@ public class AddPastilla extends AppCompatActivity implements DatePickerDialog.O
             }
             datos.put("repeticiones", rep);
 
-            //Se introducen estos datos en la base de datos
+            //Se introducen los datos en la base de datos
             CollectionReference medicacion = (CollectionReference)SingletonMap.getInstance().get(Pastillero.MEDICACION);
             if (medicacion == null) {
-                //medicacion = UsuarioSingleton.getInstance().usuario.collection("medicacion");
-                //SingletonMap.getInstance().put(Pastillero.MEDICACION, medicacion);
+                // Ha habido un error, vuelve a la actividad anterior
+                Toast.makeText(getApplicationContext(), "Error al conectar con la BD", Toast.LENGTH_SHORT).show();
+                goPastillero();
+            } else {
+                // Se añade la medicacion con los datos establecidos
+                medicacion.document().set(datos);
                 goPastillero();
             }
-            medicacion.document().set(datos);
-
-            goPastillero();
-
 
         } catch(Exception e) {
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.Introduzca_bien_los_datos), Toast.LENGTH_SHORT).show();
@@ -198,10 +205,10 @@ public class AddPastilla extends AppCompatActivity implements DatePickerDialog.O
 
     //////// FIN METODOS PARA CONFIGURAR EL MENU //////////
 
+    /** Funcion para volver a la actividad del Pastillero **/
     private void goPastillero() {
         Intent intent = new Intent(this, Pastillero.class);
         this.startActivity(intent);
     }
-
 
 }

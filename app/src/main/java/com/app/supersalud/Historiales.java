@@ -18,16 +18,14 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
 public class Historiales extends AppCompatActivity {
 
     public final static String HISTORIALES = "Historial_ref";
-
     private CollectionReference historiales;
-
     private ListView listaView;
-    private ArrayList<Historial> listaHistoriales;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,44 +38,44 @@ public class Historiales extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        // Crea/obtiene la referencia a la coleccion de historiales del usuario
         historiales = (CollectionReference)SingletonMap.getInstance().get(HISTORIALES);
         if (historiales == null) {
             historiales = UsuarioSingleton.getInstance().usuario.collection("historial");
             SingletonMap.getInstance().put(HISTORIALES, historiales);
         }
 
+        // Carga los historiales y los muestra
         cargaHistoriales();
     }
 
+    /** Funcion que carga los historiales del usuario **/
     private void cargaHistoriales() {
-
         historiales.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
+                    // Añadimos cada documento de la coleccion en un ArrayList
+                    ArrayList<Historial> listaHistoriales = new ArrayList<>();
                     Historial hist;
-                    listaHistoriales = new ArrayList<>();
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         hist = document.toObject(Historial.class);
                         hist.setFecha(document.getId());
                         listaHistoriales.add(hist);
-                        //Guardamos los datos de cada medicamento de la lista en una lista local de la clase pastilla para mostrar más facilmente estos datos a continuación
-                        //pill=new Pastilla((String) med.get("nombre"), Integer.parseInt(((Long) med.get("veces_dia")).toString()), fecha, (List<String>) med.get("repeticiones"));
-
                     }
-                    //PastillaListAdapter adaptador = new PastillaListAdapter(Pastillero.this,R.layout.adapter_view_layout, (ArrayList<Pastilla>) listaPastillas);
-                    //listaView.setAdapter(adaptador);
-                    //Toast.makeText(getApplicationContext(), listaHistoriales.get(0).getFecha() + " // " + listaHistoriales.get(0).getPasos() + " // " + listaHistoriales.get(0).getVasos() , Toast.LENGTH_SHORT).show();
-                    HistorialListAdapter adaptador = new HistorialListAdapter(Historiales.this,R.layout.adapter_view_layout_history, (ArrayList<Historial>) listaHistoriales);
+                    Collections.reverse(listaHistoriales);  // Para mostrarlo por orden cronologico
+                    // Muestra los datos del historial
+                    HistorialListAdapter adaptador = new HistorialListAdapter(Historiales.this,R.layout.adapter_view_layout_history, listaHistoriales);
                     listaView.setAdapter(adaptador);
                 } else {
-                    //Gestión de errores para debugging
+                    //TODO string
                     Toast.makeText(getApplicationContext(), "Fallo con " + task.getException(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
     }
+
 
     ////// METODOS PARA CONFIGURAR EL MENU /////////
 
@@ -92,6 +90,7 @@ public class Historiales extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()) {
             case R.id.cerrar_sesion:
+                historiales = null;
                 cerrarSesion();
                 return true;
             default:
@@ -104,5 +103,4 @@ public class Historiales extends AppCompatActivity {
         this.startActivity(intent);
     }
 
-    //////// FIN METODOS PARA CONFIGURAR EL MENU //////////
 }

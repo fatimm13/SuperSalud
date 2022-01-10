@@ -12,12 +12,11 @@ import androidx.annotation.Nullable;
 
 import java.util.List;
 
-
+/** Clase para manejar como se muestra el listado de historiales **/
 public class HistorialListAdapter extends ArrayAdapter<Historial> {
 
     private Context mContext;
     int mResource;
-
 
     public HistorialListAdapter(@NonNull Context context, int resource, @NonNull List<Historial> objects) {
         super(context, resource, objects);
@@ -40,6 +39,7 @@ public class HistorialListAdapter extends ArrayAdapter<Historial> {
         TextView txVasos = convertView.findViewById(R.id.tx_aguaHist);
         TextView txPasos = convertView.findViewById(R.id.tx_pasosHist);
 
+        // Se establece el texto
         txFecha.setText(fecha);
         txVasos.setText(mContext.getResources().getString(R.string.water) + ": " + agua);
         txPasos.setText(mContext.getResources().getString(R.string.pasos) + ": " + pasos);

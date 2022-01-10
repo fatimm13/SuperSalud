@@ -1,9 +1,9 @@
 package com.app.supersalud;
 
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
+/** Clase para obtener una Medicacion (Pastilla) de la BD **/
 public class Pastilla {
 
     private String nombre;
@@ -13,23 +13,6 @@ public class Pastilla {
     private String id;
 
     public Pastilla() {}
-
-    /**
-     public Pastilla(String nombre, int veces_dia, Timestamp fecha_inicio, Timestamp fecha_fin, List<String> repeticiones) {
-     this.nombre = nombre;
-     this.veces_dia = veces_dia;
-     this.fecha_inicio = new Date(fecha_inicio.getTime());
-     this.fecha_fin = new Date(fecha_fin.getTime());
-     this.repeticiones = repeticiones;
-     }
-
-     public Pastilla(String nombre, int veces_dia, Date fecha_fin, List<String> repeticiones) {
-     this.nombre = nombre;
-     this.veces_dia = veces_dia;
-     this.fecha_fin = fecha_fin;
-     this.repeticiones = repeticiones;
-     }
-     **/
 
     public String getId() { return id; }
 

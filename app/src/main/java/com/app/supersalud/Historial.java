@@ -1,7 +1,6 @@
 package com.app.supersalud;
 
-import java.util.Date;
-
+/** Clase para establecer y obtener el Historial **/
 public class Historial {
 
     private int vasos, pasos;

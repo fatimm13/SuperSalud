@@ -6,6 +6,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/** Clase para obtener la referencia de la BD del historial del dia actual con el metodo Singleton **/
 public class HistorialSingleton {
 
     private static HistorialSingleton instance;

@@ -3,6 +3,7 @@ package com.app.supersalud;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+/** Clase para obtener la referencia a la BD del usuario con el metodo Singleton **/
 public class UsuarioSingleton {
 
     private static UsuarioSingleton instance;

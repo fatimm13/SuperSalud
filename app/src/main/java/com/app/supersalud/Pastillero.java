@@ -36,9 +36,7 @@ public class Pastillero extends AppCompatActivity {
     public final static String MEDICACION = "Medicacion_ref";
 
     private CollectionReference medicacion;
-
     private ListView listaView;
-    private ArrayList<Pastilla> listaPastillas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,18 +44,19 @@ public class Pastillero extends AppCompatActivity {
         setContentView(R.layout.activity_pastillero);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         listaView = findViewById(R.id.lista_medicina);
-
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        // Crea/obtiene la referencia a la coleccion de medicacion del usuario
         medicacion = (CollectionReference)SingletonMap.getInstance().get(Pastillero.MEDICACION);
         if (medicacion == null) {
             medicacion = UsuarioSingleton.getInstance().usuario.collection("medicacion");
             SingletonMap.getInstance().put(Pastillero.MEDICACION, medicacion);
         }
 
+        // Carga los medicamentos
         cargaPastillas();
     }
 
@@ -67,22 +66,12 @@ public class Pastillero extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    //Map<String, Object> med;
+                    // Recorremos la coleccion de medicamentos, si finalizaron en el pasado se eliminan
                     Pastilla pill;
-                    listaPastillas = new ArrayList<>();
+                    ArrayList<Pastilla> listaPastillas = new ArrayList<>();
                     Date hoy = new Date();
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         pill = document.toObject(Pastilla.class);
-                        /**
-                        med = document.getData();
-                        Timestamp fecha_fin = (Timestamp) med.get("fecha_fin");
-                        Date fecha;
-                        if(fecha_fin!= null){
-                            fecha = fecha_fin.toDate();
-                        }else{
-                            fecha = null;
-                        }
-                         **/
                         pill.setId(document.getId());
                         Date fechafin = pill.getFecha_fin();
                         if (fechafin != null && fechafin.before(hoy)) {
@@ -90,15 +79,13 @@ public class Pastillero extends AppCompatActivity {
                         } else {
                             listaPastillas.add(pill);
                         }
-                        //Guardamos los datos de cada medicamento de la lista en una lista local de la clase pastilla para mostrar más facilmente estos datos a continuación
-                        //pill=new Pastilla((String) med.get("nombre"), Integer.parseInt(((Long) med.get("veces_dia")).toString()), fecha, (List<String>) med.get("repeticiones"));
-
                     }
+                    // Muestra los datos de los medicamentos
                     PastillaListAdapter adaptador = new PastillaListAdapter(Pastillero.this,R.layout.adapter_view_layout, (ArrayList<Pastilla>) listaPastillas);
                     listaView.setAdapter(adaptador);
 
                 } else {
-                    //Gestión de errores para debugging
+                    //TODO string
                     Toast.makeText(getApplicationContext(), "Fallo con " + task.getException(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -106,14 +93,17 @@ public class Pastillero extends AppCompatActivity {
 
     }
 
+    /** Funcion para borrar una medicacion a traves de su id **/
     public void borrarMedicacion(String id) {
         medicacion.document(id).delete();
     }
 
+    /** Funcion para ir a la actividad de AddPastilla **/
     public void goNewPill (View view){
         Intent intent = new Intent(this, AddPastilla.class);
         startActivity(intent);
     }
+
 
     ////// METODOS PARA CONFIGURAR EL MENU /////////
 
@@ -140,5 +130,4 @@ public class Pastillero extends AppCompatActivity {
         this.startActivity(intent);
     }
 
-    //////// FIN METODOS PARA CONFIGURAR EL MENU //////////
 }
