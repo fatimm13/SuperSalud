@@ -12,7 +12,7 @@ public class Pastilla {
     private List<String> repeticiones;
 
     public Pastilla() {}
-
+/**
     public Pastilla(String nombre, int veces_dia, Timestamp fecha_inicio, Timestamp fecha_fin, List<String> repeticiones) {
         this.nombre = nombre;
         this.veces_dia = veces_dia;
@@ -27,7 +27,7 @@ public class Pastilla {
         this.fecha_fin = fecha_fin;
         this.repeticiones = repeticiones;
     }
-
+**/
     public String getNombre() {
         return nombre;
     }

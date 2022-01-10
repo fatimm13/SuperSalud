@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -7,7 +8,7 @@
     <TextView
         android:id="@+id/tx_nombreMedi"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:text="TextView1"
         android:textColor="#000000"
@@ -17,12 +18,13 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="30dp">
         android:weight_sum="100"
 
         <TextView
             android:gravity="center"
             android:text="TextView2"
+            android:textSize="16sp"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:id="@+id/tx_fechaMediIni"
@@ -31,6 +33,7 @@
         <TextView
             android:gravity="center"
             android:text="TextView3"
+            android:textSize="16sp"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:id="@+id/tx_fechaMediFin"
@@ -39,18 +42,31 @@
 
 
 
-        <TextView
-            android:gravity="center"
-            android:text="TextView4"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:id="@+id/tx_vecesMedi"/>
+    <TextView
+        android:gravity="center"
+        android:text="TextView4"
+        android:textSize="16sp"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:id="@+id/tx_vecesMedi"/>
 
-        <TextView
-            android:gravity="center"
-            android:text="TextView5"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:id="@+id/tx_diasMedi"/>
+    <TextView
+        android:gravity="center"
+        android:text="TextView5"
+        android:textSize="16sp"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:id="@+id/tx_diasMedi"/>
+
+    <Button
+        android:id="@+id/button_newPill"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#730000"
+        android:gravity="center"
+        android:text="@string/delete_pill"
+        android:textColorHighlight="#B62121"
+        app:icon="@android:drawable/ic_menu_delete"
+        app:iconGravity="textStart" />
 
 </LinearLayout>

@@ -32,41 +32,36 @@ import com.google.firebase.auth.GoogleAuthProvider;
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-
     private GoogleSignInClient mGoogleSignInClient;
     private ActivityResultLauncher<Intent> myActivityResultLauncher;
 
     private TextView tx;
 
-    private SignInButton googleButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Configura las opciones de inicio de sesion de google
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        // Initialize Firebase Auth
+        // Inicializa Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
-        googleButton = (SignInButton) findViewById(R.id.sign_in_button);
+        // Configuramos el boton de inicio de sesion con google
+        SignInButton googleButton = (SignInButton) findViewById(R.id.sign_in_button);
         googleButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                tx.setText("Boton pulsado inicio");
-
                 mGoogleSignInClient.signOut();
                 myActivityResultLauncher.launch(mGoogleSignInClient.getSignInIntent());
-
-                tx.setText("Boton pulsado terminado");
-
             }
         });
 
+        // Configuramos el boton de inicio de sesion anonimo
         Button anonimoButton = findViewById(R.id.bAnonimo);
         anonimoButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -80,27 +75,25 @@ public class MainActivity extends AppCompatActivity {
                 new ActivityResultCallback<ActivityResult>() {
                     @Override
                     public void onActivityResult(ActivityResult result) {
-                        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+                        // Resultado de lanzar el intent de GoogleSignInClient.getSignInIntent(...);
                         if (result.getResultCode() == Activity.RESULT_OK) {
-                            // The Task returned from this call is always completed, no need to attach
-                            // a listener.
                             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(result.getData());
                             try {
-                                // Google Sign In was successful, authenticate with Firebase
+                                // Inicio de sesion con Google exitoso, autenticacion con Firebase
                                 GoogleSignInAccount account = task.getResult(ApiException.class);
                                 if (account != null) {
                                     firebaseAuthWithGoogle(account.getIdToken());
                                 }
 
                             } catch (ApiException e) {
-                                // Google Sign In failed, update UI appropriately
-                                Toast.makeText(getApplicationContext(), "Fallo en el inicio de sesion con Google " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                // Inicio de sesion con Google fallido
+                                Toast.makeText(getApplicationContext(), MainActivity.this.getResources().getString(R.string.fallo_inicio_google), Toast.LENGTH_SHORT).show();
                             }
-
                         }
                     }
                 });
 
+        // TODO ver que hacer con este texto, yo diria algo de bienvenida y otro para el anonimo
         tx = (TextView) findViewById(R.id.tx_fechaMedi);
         tx.setText("Hola");
     }
@@ -108,43 +101,39 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        // Limpiamos todas las posibles variables guardadas
         UsuarioSingleton.cerrarSesion();
         HistorialSingleton.cerrarSesion();
         SingletonMap.getInstance().clear();
-        PastillasSingleton.cerrarSesion();
     }
 
-    // [START auth_with_google]
+    /** Autenticacion con google dado el String del id como parametro **/
     private void firebaseAuthWithGoogle(String idToken) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText(getApplicationContext(), "signInWithCredential:success", Toast.LENGTH_SHORT).show();
+                            // Inicio de sesion exitoso
+                            Toast.makeText(getApplicationContext(), MainActivity.this.getResources().getString(R.string.inicio_google_exitoso), Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
                             String email = user.getEmail();
                             String nombre = user.getDisplayName();
                             UsuarioSingleton.getInstance(email, nombre);
                             goHome();
                         } else {
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(getApplicationContext(), "signInWithCredential:failure", Toast.LENGTH_SHORT).show();
+                            // Inicio de sesion fallido
+                            Toast.makeText(getApplicationContext(), MainActivity.this.getResources().getString(R.string.inicio_google_fallido), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
-
     }
 
-
+    /** Lleva al Home de la aplicacion **/
     private void goHome() {
-        tx.setText("Patata");
         Intent intent = new Intent(this, Home.class);
         startActivity(intent);
     }
-
 
 }

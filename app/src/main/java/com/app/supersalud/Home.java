@@ -272,6 +272,11 @@ public class Home extends AppCompatActivity implements SensorEventListener {
         startActivity(intent);
     }
 
+    public void goHistoriales (View view){
+        Intent intent = new Intent(this, Historiales.class);
+        startActivity(intent);
+    }
+
     ////////////////////////// CUENTAPASOS //////////////////////////////////////////////
 
 

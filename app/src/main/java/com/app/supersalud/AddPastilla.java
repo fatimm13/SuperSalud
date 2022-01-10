@@ -19,6 +19,7 @@ import com.google.firebase.firestore.DocumentReference;
 
 import org.w3c.dom.Document;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -37,12 +38,15 @@ public class AddPastilla extends AppCompatActivity implements DatePickerDialog.O
     private CheckBox lunes, martes, miercoles, jueves, viernes, sabado, domingo;
     private Date fecha;
     private TextView txFecha;
+    SimpleDateFormat objSDF;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_pastilla);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        objSDF = new SimpleDateFormat("dd/MM/yyyy");
 
         txNombre = findViewById(R.id.in_nombreMed);
         //txDias = findViewById(R.id.in_dayAmount);
@@ -58,7 +62,7 @@ public class AddPastilla extends AppCompatActivity implements DatePickerDialog.O
 
         txFecha = findViewById(R.id.tFecha);
 
-        findViewById(R.id.bFechaInicio).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.bFechaFin).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDatePicker();
@@ -69,8 +73,7 @@ public class AddPastilla extends AppCompatActivity implements DatePickerDialog.O
         txNombre.setText("");
         //txDias.setText("1");
         txVeces.setText("1");
-
-        txFecha.setText("Seleccione fecha");
+        txFecha.setText(getResources().getString(R.string.Indefinido));
 
         ocultarSemana();
     }
@@ -89,8 +92,13 @@ public class AddPastilla extends AppCompatActivity implements DatePickerDialog.O
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         LocalDate f = LocalDate.of(year, month + 1, dayOfMonth);
-        fecha = Date.from(f.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        txFecha.setText(f.toString());
+        Date date = Date.from(f.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        if(date.before(new Date())) {
+            Toast.makeText(getApplicationContext(),"La fecha no puede ser pasada", Toast.LENGTH_SHORT).show();
+        } else {
+            fecha = date;
+            txFecha.setText(objSDF.format(fecha));
+        }
     }
 
     public void clickSwitch(View view){

@@ -27,12 +27,12 @@
             android:id="@+id/tx_cantidadPastillas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="44dp"
             android:text="@string/num_pills"
             android:textColor="#000000"
             android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintStart_toStartOf="@+id/bFechaFin"
+            app:layout_constraintTop_toBottomOf="@+id/tFecha" />
 
         <Button
             android:id="@+id/button_newPill"
@@ -43,8 +43,10 @@
             android:text="@string/add_pill"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cL" />
+            app:layout_constraintTop_toBottomOf="@+id/cL"
+            app:layout_constraintVertical_bias="1.0" />
 
         <EditText
             android:id="@+id/in_nombreMed"
@@ -73,6 +75,8 @@
             android:layout_marginTop="28dp"
             android:onClick="clickSwitch"
             android:text="Repetición por días"
+            android:textColor="#000000"
+            android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@+id/in_quantPillsDaily"
             app:layout_constraintTop_toBottomOf="@+id/in_quantPillsDaily"
             tools:ignore="UseSwitchCompatOrMaterialXml" />
@@ -155,34 +159,38 @@
             android:layout_height="wrap_content"
             app:constraint_referenced_ids="cL,cM,cX,cX,cJ,cV,cS,cD" />
 
-        <Button
-            android:id="@+id/bFechaInicio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:text="@string/Fin_del_tratamiento"
-            app:layout_constraintStart_toStartOf="@+id/in_nombreMed"
-            app:layout_constraintTop_toBottomOf="@+id/in_nombreMed" />
-
         <TextView
             android:id="@+id/tFecha"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="TextView"
-            app:layout_constraintBottom_toBottomOf="@+id/textView"
-            app:layout_constraintStart_toEndOf="@+id/textView" />
+            android:layout_marginStart="8dp"
+            android:text="@string/Indefinido"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/bFechaFin"
+            app:layout_constraintStart_toEndOf="@+id/bFechaFin"
+            app:layout_constraintTop_toTopOf="@+id/bFechaFin"
+            app:layout_constraintVertical_bias="0.583" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/Fecha_seleccionada"
+            android:layout_marginTop="36dp"
+            android:text="@string/Fin_del_tratamiento"
             android:textColor="#000000"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/bFechaInicio"
-            app:layout_constraintTop_toBottomOf="@+id/bFechaInicio" />
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/in_nombreMed"
+            app:layout_constraintTop_toBottomOf="@+id/in_nombreMed" />
+
+        <ImageButton
+            android:id="@+id/bFechaFin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/design_default_color_primary"
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:srcCompat="@android:drawable/ic_menu_my_calendar" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

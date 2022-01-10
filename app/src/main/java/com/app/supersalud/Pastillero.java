@@ -67,6 +67,7 @@ public class Pastillero extends AppCompatActivity {
                     //Map<String, Object> med;
                     Pastilla pill;
                     listaPastillas = new ArrayList<>();
+                    Date hoy = new Date();
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         pill = document.toObject(Pastilla.class);
                         /**
@@ -79,17 +80,18 @@ public class Pastillero extends AppCompatActivity {
                             fecha = null;
                         }
                          **/
+                        Date fechafin = pill.getFecha_fin();
+                        if (fechafin != null && fechafin.before(hoy)) {
+                            borrarMedicacion(document.getId());
+                        } else {
+                            listaPastillas.add(pill);
+                        }
                         //Guardamos los datos de cada medicamento de la lista en una lista local de la clase pastilla para mostrar más facilmente estos datos a continuación
                         //pill=new Pastilla((String) med.get("nombre"), Integer.parseInt(((Long) med.get("veces_dia")).toString()), fecha, (List<String>) med.get("repeticiones"));
-                        listaPastillas.add(pill);
 
                     }
                     PastillaListAdapter adaptador = new PastillaListAdapter(Pastillero.this,R.layout.adapter_view_layout, (ArrayList<Pastilla>) listaPastillas);
-                    //ArrayAdapter<Pastilla> adaptador = new ArrayAdapter<>(Pastillero.this,R.layout.adapter_view_layout, (ArrayList<Pastilla>) listaPastillas);
                     listaView.setAdapter(adaptador);
-
-                    //Toast.makeText(getApplicationContext(), listaPastillas.get(0).getRepeticiones().get(0), Toast.LENGTH_SHORT).show();
-
 
                 } else {
                     //Gestión de errores para debugging
@@ -98,6 +100,10 @@ public class Pastillero extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void borrarMedicacion(String id) {
+        medicacion.document(id).delete();
     }
 
     public void goNewPill (View view){

@@ -48,7 +48,7 @@ public class PastillaListAdapter extends ArrayAdapter<Pastilla> {
         TextView txFechaFin = convertView.findViewById(R.id.tx_fechaMediFin);
         TextView txDias = convertView.findViewById(R.id.tx_diasMedi);
 
-        StringJoiner agrupar= new StringJoiner(",");
+        StringJoiner agrupar= new StringJoiner(", ");
         for (String s:rep) {
             agrupar.add(s);
         }
@@ -68,13 +68,11 @@ public class PastillaListAdapter extends ArrayAdapter<Pastilla> {
             txFechaFin.setText(mContext.getResources().getString(R.string.Inicio_Tratamiento) + " " + mContext.getResources().getString(R.string.Indefinido));
         }
 
-
         if(rep!=null && !rep.isEmpty()){
             txDias.setText(agrupar.toString());
         }else{
             txDias.setText(mContext.getResources().getString(R.string.Todos_los_dias));
         }
-
 
         return convertView;
     }

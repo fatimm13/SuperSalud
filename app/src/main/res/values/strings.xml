@@ -6,6 +6,12 @@
     <string name="title_activity_pastillero">Listado de medicacion</string>
     <string name="title_activity_addPastilla">Añadir medicacion</string>
     <string name="title_activity_objetivos">Objetivos</string>
+    <string name="title_activity_historiales">Historial</string>
+
+    <!-- Avisos de los Toast -->
+    <string name="fallo_inicio_google">Fallo en el inicio de sesion con Google</string>
+    <string name="inicio_google_exitoso">Exito en el inicio de sesion con credenciales</string>
+    <string name="inicio_google_fallido">Fallo en el inicio de sesion con credenciales</string>
 
     <string name="log_out">Cerrar sesion</string>
 
@@ -38,4 +44,5 @@
     <string name="time_medication">Días recetados:</string>
     <string name="num_pills">Número de dosis diarias:</string>
     <string name="add_pill">Nueva pastilla</string>
+    <string name="delete_pill">Borra medicacion</string>
 </resources>
