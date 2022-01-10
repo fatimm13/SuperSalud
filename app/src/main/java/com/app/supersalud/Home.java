@@ -42,7 +42,8 @@ public class Home extends AppCompatActivity implements SensorEventListener {
     //////////////////////////////////////////////
 
 
-    protected int progr_water, progr_steps;
+    protected int progr_water;
+    protected int progr_steps = -1;
 
     private int objetivo_pasos;
     private int objetivo_vasos;
@@ -243,7 +244,7 @@ public class Home extends AppCompatActivity implements SensorEventListener {
         progressBarSteps.setProgress(porc, true);
 
         //Damos un margen porque los pasos pueden llegar a dar saltos a la hora de actualizarse
-        if (progr_steps>= objetivo_pasos && progr_steps < objetivo_pasos+3){
+        if (progr_steps >= objetivo_pasos && progr_steps < objetivo_pasos+3){
             NotificationCompat.Builder builder = new NotificationCompat.Builder(Home.this, "SuperSalud");
             builder.setContentTitle(getResources().getString(R.string.Objetivo_conseguido));
             builder.setContentText(getResources().getString(R.string.Texto_objetivo_pasos));
@@ -256,13 +257,10 @@ public class Home extends AppCompatActivity implements SensorEventListener {
     }
 
     private void updateStepsDB(){
-        //Actualizamos el valor de vasos en la base de datos
+        //Actualizamos el valor de pasos en la base de datos
         if (historial != null){
             historial.update("pasos", progr_steps);
-        } else{
-            Toast.makeText(getApplicationContext(), "El historial es null", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     ////// METODOS PARA CONFIGURAR EL MENU /////////
@@ -318,6 +316,7 @@ public class Home extends AppCompatActivity implements SensorEventListener {
     protected void onResume() {
         super.onResume();
         totalSteps = 0f;
+        previousTotalSteps=0f;
         running = true;     // TODO: maybe esto hace que no se ejecute en segundo plano??
         Sensor stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
         if (stepSensor == null) {
@@ -330,7 +329,7 @@ public class Home extends AppCompatActivity implements SensorEventListener {
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        if (running && event != null) {
+        if (running && event != null && progr_steps != -1) {
             /**
             totalSteps = event.values[0];
             int currentSteps = (int) totalSteps - (int) previousTotalSteps;
@@ -339,12 +338,12 @@ public class Home extends AppCompatActivity implements SensorEventListener {
              **/
             if (totalSteps == 0f) {
                 totalSteps = event.values[0];
-                previousTotalSteps = totalSteps;
+                previousTotalSteps = totalSteps-progr_steps;
             } else {
                 totalSteps = event.values[0];
             }
-            int progreso = (int) totalSteps - (int) previousTotalSteps;      // lo que has avanzado nuevo
-            progr_steps += progreso;
+            //int progreso =      // lo que has avanzado nuevo
+            progr_steps = (int) totalSteps - (int) previousTotalSteps; ;
             updateDataShownSteps();
             updateStepsDB();
         }
