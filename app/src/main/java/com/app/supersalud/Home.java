@@ -2,13 +2,18 @@ package com.app.supersalud;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -64,6 +69,12 @@ public class Home extends AppCompatActivity implements SensorEventListener {
         txPasos = findViewById(R.id.num_pasos);
         progressBarSteps = findViewById(R.id.progress_bar_steps);
         progressBarSteps.setProgress(0);
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel channel = new NotificationChannel("SuperSalud", "SuperSalud", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
 
     }
 
@@ -198,6 +209,17 @@ public class Home extends AppCompatActivity implements SensorEventListener {
         txProgWater.setText(porc +"%");
         txVasos.setText(progr_water+"");
         progressBarWater.setProgress(porc, true);
+
+        if (progr_water == objetivo_vasos){
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(Home.this, "SuperSalud");
+            builder.setContentTitle(getResources().getString(R.string.Objetivo_conseguido));
+            builder.setContentText(getResources().getString(R.string.Texto_objetivo_agua));
+            builder.setSmallIcon(R.drawable.logo);
+            builder.setAutoCancel(true);
+
+            NotificationManagerCompat managerCompat = NotificationManagerCompat.from(Home.this);
+            managerCompat.notify(1, builder.build());
+        }
     }
 
     private void updateWaterDB(){
@@ -219,6 +241,18 @@ public class Home extends AppCompatActivity implements SensorEventListener {
         txProgSteps.setText(porc +"%");
         txPasos.setText(progr_steps+" " + getResources().getString(R.string.steps));
         progressBarSteps.setProgress(porc, true);
+
+        //Damos un margen porque los pasos pueden llegar a dar saltos a la hora de actualizarse
+        if (progr_steps>= objetivo_pasos && progr_steps < objetivo_pasos+3){
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(Home.this, "SuperSalud");
+            builder.setContentTitle(getResources().getString(R.string.Objetivo_conseguido));
+            builder.setContentText(getResources().getString(R.string.Texto_objetivo_pasos));
+            builder.setSmallIcon(R.drawable.logo);
+            builder.setAutoCancel(true);
+
+            NotificationManagerCompat managerCompat = NotificationManagerCompat.from(Home.this);
+            managerCompat.notify(1, builder.build());
+        }
     }
 
     private void updateStepsDB(){

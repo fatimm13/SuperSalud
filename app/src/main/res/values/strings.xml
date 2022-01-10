@@ -39,6 +39,9 @@
     <string name="Fin_Tratamiento">Fin: </string>
     <string name="Indefinido">Indefinido</string>
     <string name="Todos_los_dias">Todos los días</string>
+    <string name="Objetivo_conseguido">¡Objetivo conseguido!</string>
+    <string name="Texto_objetivo_agua">Has alcanzado tu objetivo de vasos para hoy, ¡Sigue así!</string>
+    <string name="Texto_objetivo_pasos">Has alcanzado tu objetivo de pasos para hoy, ¡Sigue así!</string>
 
     <string name="name_medication">Nombre medicación: </string>
     <string name="time_medication">Días recetados:</string>
