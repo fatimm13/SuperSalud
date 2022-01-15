@@ -90,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
                                 // Inicio de sesion con Google fallido
                                 Toast.makeText(getApplicationContext(), MainActivity.this.getResources().getString(R.string.fallo_inicio_google), Toast.LENGTH_SHORT).show();
                             }
+                        }else{
+                            Toast.makeText(getApplicationContext(), MainActivity.this.getResources().getString(R.string.fallo_inicio_google), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

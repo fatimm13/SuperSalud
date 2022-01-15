@@ -12,6 +12,7 @@
     <string name="fallo_inicio_google">Google log in failure</string>
     <string name="inicio_google_exitoso">Credential log in success</string>
     <string name="inicio_google_fallido">Credential log in failure</string>
+    <string name="fallo_manual">Google log in failure (Check User Manual)</string>
 
     <string name="log_out">Log out</string>
 

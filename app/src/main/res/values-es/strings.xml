@@ -12,6 +12,7 @@
     <string name="fallo_inicio_google">Fallo en el inicio de sesión con Google</string>
     <string name="inicio_google_exitoso">Exito en el inicio de sesión con credenciales</string>
     <string name="inicio_google_fallido">Fallo en el inicio de sesión con credenciales</string>
+    <string name="fallo_manual">Fallo en el inicio de sesión con Google (Revisar manual de usuario)</string>
 
     <string name="log_out">Cerrar sesión</string>
 

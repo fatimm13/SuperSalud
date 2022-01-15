@@ -19,10 +19,10 @@ public class UsuarioSingleton {
     }
 
     private UsuarioSingleton(){
+        email = "pruebaandempotrados@gmail.com";
+        nombre = "Cuenta Prueba";
         FirebaseFirestore db = DatabaseSingleton.getInstance().database;
-        usuario = db.collection("usuarios").document();
-        email = "anonimo@anonimo.com";
-        nombre = "Anonimo";
+        usuario = db.collection("usuarios").document(email);
     }
 
     public static UsuarioSingleton getInstance(String email, String nombre) {
